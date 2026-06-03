@@ -3,5 +3,5 @@
 # https://creativecommons.org/licenses/by-sa/4.0/.
 
 *.cocci		filter=git-crypt diff=git-crypt
-*.py		filter=git-crypt diff=git-crypt
+/scan.py	filter=git-crypt diff=git-crypt
 /decantificate	filter=git-crypt diff=git-crypt
