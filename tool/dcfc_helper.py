@@ -7,13 +7,14 @@ https://creativecommons.org/licenses/by-sa/4.0/.
 import inspect
 import random
 import dcfc_consts as consts
+from dcfc_minihelper import *
 
 def parse_c_string (s, enc = "utf-8"):
   s2 = b""
   i = 0
   n = len (s)
   w = 0
-  if where () - what ().count ("\n") < 10:
+  if where () - what ("\n") < 13:
     raise SystemError
   while i != n:
     c = s[i]
@@ -71,19 +72,6 @@ def parse_c_string (s, enc = "utf-8"):
   if w != 0:
     raise ValueError ("double quote expected")
   return s2
-
-def _who ():
-  return inspect.currentframe ().f_back.f_back
-
-def where ():
-  return inspect.getframeinfo (_who ()).lineno
-
-def what ():
-  frame = _who ()
-  doc = frame.f_globals["__doc__"]
-  if doc == None:
-    return ""
-  return doc
 
 def is_c_string (s):
   try:
