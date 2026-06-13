@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-decantificate is licensed under CC BY-SA 4.0.
+openrenoir is licensed under CC BY-SA 4.0.
 To view a copy of this license, visit
 https://creativecommons.org/licenses/by-sa/4.0/.
 """
@@ -9,7 +9,7 @@ import os
 import re
 import string
 import sys
-from dcfc_minihelper import *
+from oroir_minihelper import *
 
 class IdCharMap (dict):
   def __missing__ (self, key):

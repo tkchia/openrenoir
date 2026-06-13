@@ -1,4 +1,4 @@
-/* decantificate is licensed under CC BY-SA 4.0.
+/* openrenoir is licensed under CC BY-SA 4.0.
  * To view a copy of this license, visit
  * https://creativecommons.org/licenses/by-sa/4.0/.  */
 
@@ -6,9 +6,9 @@
 @@
 import lz4.block
 import struct
-from dcfc_helper import *
+from oroir_helper import *
 
-@dcfc800@
+@oroir800@
 identifier Q1;
 statement S1;
 initialiser V1 : script:python () { is_c_string (V1) };
@@ -21,9 +21,9 @@ initialiser V1 : script:python () { is_c_string (V1) };
     ...
   }
 
-@script:python dcfc801 depends on dcfc800@
-Q1 << dcfc800.Q1;
-V1 << dcfc800.V1;
+@script:python oroir801 depends on oroir800@
+Q1 << oroir800.Q1;
+V1 << oroir800.V1;
 V3;
 V2;
 L1;
@@ -43,13 +43,13 @@ coccinelle.V2 = coccinelle.Cocci ().make_expr (V2)
 coccinelle.L1 = coccinelle.Cocci ().make_expr (str (L1))
 coccinelle.L2 = coccinelle.Cocci ().make_expr (str (L2))
 
-@dcfc802 depends on dcfc800 && dcfc801@
-identifier dcfc800.Q1;
-statement dcfc800.S1;
-initialiser dcfc800.V1;
-expression dcfc801.V3, dcfc801.V2, dcfc801.L1, dcfc801.L2;
-fresh identifier Q2 = "_dcfc80_";
-fresh identifier Q3 = "_dcfc80_";
+@oroir802 depends on oroir800 && oroir801@
+identifier oroir800.Q1;
+statement oroir800.S1;
+initialiser oroir800.V1;
+expression oroir801.V3, oroir801.V2, oroir801.L1, oroir801.L2;
+fresh identifier Q2 = "_oroir80_";
+fresh identifier Q3 = "_oroir80_";
 @@
   {
     ...
@@ -58,16 +58,16 @@ fresh identifier Q3 = "_dcfc80_";
 ++  register const uint32_t Q3 = V3 ^ 0;
     ... when != Q1
 ++  char Q1[L1];
-++  _dcfc80_frob (Q1, Q2, L2, Q3);
+++  _oroir80_frob (Q1, Q2, L2, Q3);
     S1
     ...
   }
 
-@dcfc803@
+@oroir803@
 @@
-  #include <decantificate/decantificate.h>
+  #include <openrenoir/openrenoir.h>
 
-@dcfc804 depends on ever dcfc802 && never dcfc803@
+@oroir804 depends on ever oroir802 && never oroir803@
 @@
   #include ...
-+ #include <decantificate/decantificate.h>
++ #include <openrenoir/openrenoir.h>

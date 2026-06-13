@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-decantificate is licensed under CC BY-SA 4.0.
+openrenoir is licensed under CC BY-SA 4.0.
 To view a copy of this license, visit
 https://creativecommons.org/licenses/by-sa/4.0/.
 """
@@ -48,12 +48,12 @@ def ro_data_root (me):
   us = os.path.dirname (me)
   (us_head, us_tail) = os.path.split (us)
   if us_tail.lower () == "bin":
-    us = os.path.join (us_head, "share", "decantificate")
+    us = os.path.join (us_head, "share", "openrenoir")
   return us
 
 us = ro_data_root (sys.argv[0])
 sys.path = [us] + sys.path
-from dcfc_minihelper import *
+from oroir_minihelper import *
 
 opts = parse_args (sys.argv[1 :])
 new_env = dict (os.environ)
@@ -67,7 +67,7 @@ with tempfile.NamedTemporaryFile (delete_on_close = False) as mid_fh:
   new_args = ["spatch"]
   if opts.cplusplus:
     new_args += ["--c++"]
-  new_args += ["--sp-file", os.path.join (us, "dcfc80.cocci"),
+  new_args += ["--sp-file", os.path.join (us, "oroir80.cocci"),
                "-o", mid_file, opts.in_file]
   subprocess.run (new_args, env = new_env, check = True)
   new_args = ["spatch"]
@@ -75,5 +75,5 @@ with tempfile.NamedTemporaryFile (delete_on_close = False) as mid_fh:
     new_args += ["--c++"]
   if opts.out_file != None:
     new_args += ["-o", opts.out_file]
-  new_args += ["--sp-file", os.path.join (us, "dcfcf0.cocci"), mid_file]
+  new_args += ["--sp-file", os.path.join (us, "oroirf0.cocci"), mid_file]
   subprocess.run (new_args, env = new_env, check = True)
