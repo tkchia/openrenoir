@@ -45,14 +45,17 @@ AX_RENOIR_PATH_PROG(SPATCH,spatch,[Coccinelle spatch])
 AX_RENOIR_PATH_PROG(PYTHON,[python3 python],[Python 3 interpreter])
 
 AX_RENOIR_CHECK_ABSENT([doc/LICENSE.CC-BY-SA],
-		       [README.md],
+		       [LICENSE COPYING],
 		       [c52f33b1da159d152944a6f09a3abb3bd5bc1ff4
 			4d41fe1a9681960bf3338a358d2f8781224a5b55],
 		       [1eeca99492e991cf1579544932932dcaa6c32ae3
 			2645f03864d9de5633f84cbce32fe508969f88fd
 			dafe85aadd33a4d1b622522ee109d17c19c9a3a0
 			cbb5efcaa11738b71127f911f8d9a1a86d577882
-			7f61abcaa84f32000fee6de0a8b6115830b33b4b])
+			7f61abcaa84f32000fee6de0a8b6115830b33b4b
+			00d995382910627cf5ae881a4530c14b6e01765b
+			1920a900bcc5f0344d44e608483e97773a33a071
+			a80c868e68352d18a5f6c2dfd88947f16c79e8e3])
 
 AC_CONFIG_FILES([Makefile tool/openrenoir tool/scan.py],
 		[test -f tool/openrenoir && chmod +x tool/openrenoir])

@@ -4067,24 +4067,43 @@ fi
 
 
 
-    if test -r "$srcdir"/'README.md'; then
-      if test ! -f "$srcdir"/'README.md'; then
-	  as_fn_error $? "unexpected README.md in $srcdir" "$LINENO" 5
+    if test -r "$srcdir"/'LICENSE'; then
+      if test ! -f "$srcdir"/'LICENSE'; then
+	  as_fn_error $? "unexpected LICENSE in $srcdir" "$LINENO" 5
       else
-	case "$(POSIXLY_CORRECT=1 $FILE "$srcdir"/'README.md' 2>/dev/null)" in
+	case "$(POSIXLY_CORRECT=1 $FILE "$srcdir"/'LICENSE' 2>/dev/null)" in
 	  *EBCDIC* | *ebcdic*)
 	    ;;
 	  *ascii* | *ASCII* | *utf-8* | *UTF-8*)
-	    if test 256 -lt "$(wc -c <"$srcdir"/'README.md' 2>/dev/null)"
+	    if test 256 -lt "$(wc -c <"$srcdir"/'LICENSE' 2>/dev/null)"
 	    then
-	        as_fn_error $? "unexpected README.md in $srcdir" "$LINENO" 5
+	        as_fn_error $? "unexpected LICENSE in $srcdir" "$LINENO" 5
 	    fi ;;
 	  *)
 	    ;;
         esac
       fi
     elif test "$renoir_l" -lt 43 -o 63 -lt 63; then
-        as_fn_error $? "unexpected README.md in $srcdir" "$LINENO" 5
+        as_fn_error $? "unexpected LICENSE in $srcdir" "$LINENO" 5
+    fi
+    if test -r "$srcdir"/'COPYING'; then
+      if test ! -f "$srcdir"/'COPYING'; then
+	  as_fn_error $? "unexpected COPYING in $srcdir" "$LINENO" 5
+      else
+	case "$(POSIXLY_CORRECT=1 $FILE "$srcdir"/'COPYING' 2>/dev/null)" in
+	  *EBCDIC* | *ebcdic*)
+	    ;;
+	  *ascii* | *ASCII* | *utf-8* | *UTF-8*)
+	    if test 256 -lt "$(wc -c <"$srcdir"/'COPYING' 2>/dev/null)"
+	    then
+	        as_fn_error $? "unexpected COPYING in $srcdir" "$LINENO" 5
+	    fi ;;
+	  *)
+	    ;;
+        esac
+      fi
+    elif test "$renoir_l" -lt 43 -o 63 -lt 63; then
+        as_fn_error $? "unexpected COPYING in $srcdir" "$LINENO" 5
     fi
 
     for ac_prog in gawk mawk nawk awk
@@ -4208,17 +4227,17 @@ test -n "$SHA1" || SHA1="/bin/false"
 	case "$ac_renoir_h:$ac_renoir_t" in
 	  wut | c52f33b1da159d152944a6f09a3abb3bd5bc1ff4:* | 4d41fe1a9681960bf3338a358d2f8781224a5b55:* )
 	    as_fn_arith $ac_renoir_s - 1 && ac_renoir_s=$as_val ;;
-	  wut | 1eeca99492e991cf1579544932932dcaa6c32ae3:*EBCDIC* | 2645f03864d9de5633f84cbce32fe508969f88fd:*EBCDIC* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*EBCDIC* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*EBCDIC* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*EBCDIC* \
-	       | 1eeca99492e991cf1579544932932dcaa6c32ae3:*ebcdic* | 2645f03864d9de5633f84cbce32fe508969f88fd:*ebcdic* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*ebcdic* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*ebcdic* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*ebcdic* )
+	  wut | 1eeca99492e991cf1579544932932dcaa6c32ae3:*EBCDIC* | 2645f03864d9de5633f84cbce32fe508969f88fd:*EBCDIC* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*EBCDIC* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*EBCDIC* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*EBCDIC* | 00d995382910627cf5ae881a4530c14b6e01765b:*EBCDIC* | 1920a900bcc5f0344d44e608483e97773a33a071:*EBCDIC* | a80c868e68352d18a5f6c2dfd88947f16c79e8e3:*EBCDIC* \
+	       | 1eeca99492e991cf1579544932932dcaa6c32ae3:*ebcdic* | 2645f03864d9de5633f84cbce32fe508969f88fd:*ebcdic* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*ebcdic* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*ebcdic* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*ebcdic* | 00d995382910627cf5ae881a4530c14b6e01765b:*ebcdic* | 1920a900bcc5f0344d44e608483e97773a33a071:*ebcdic* | a80c868e68352d18a5f6c2dfd88947f16c79e8e3:*ebcdic* )
 	    ;;
-	  wut | 1eeca99492e991cf1579544932932dcaa6c32ae3:*ascii* | 2645f03864d9de5633f84cbce32fe508969f88fd:*ascii* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*ascii* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*ascii* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*ascii* \
-	       | 1eeca99492e991cf1579544932932dcaa6c32ae3:*ASCII* | 2645f03864d9de5633f84cbce32fe508969f88fd:*ASCII* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*ASCII* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*ASCII* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*ASCII* \
-	       | 1eeca99492e991cf1579544932932dcaa6c32ae3:*utf-8* | 2645f03864d9de5633f84cbce32fe508969f88fd:*utf-8* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*utf-8* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*utf-8* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*utf-8* \
-	       | 1eeca99492e991cf1579544932932dcaa6c32ae3:*UTF-8* | 2645f03864d9de5633f84cbce32fe508969f88fd:*UTF-8* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*UTF-8* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*UTF-8* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*UTF-8* )
+	  wut | 1eeca99492e991cf1579544932932dcaa6c32ae3:*ascii* | 2645f03864d9de5633f84cbce32fe508969f88fd:*ascii* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*ascii* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*ascii* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*ascii* | 00d995382910627cf5ae881a4530c14b6e01765b:*ascii* | 1920a900bcc5f0344d44e608483e97773a33a071:*ascii* | a80c868e68352d18a5f6c2dfd88947f16c79e8e3:*ascii* \
+	       | 1eeca99492e991cf1579544932932dcaa6c32ae3:*ASCII* | 2645f03864d9de5633f84cbce32fe508969f88fd:*ASCII* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*ASCII* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*ASCII* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*ASCII* | 00d995382910627cf5ae881a4530c14b6e01765b:*ASCII* | 1920a900bcc5f0344d44e608483e97773a33a071:*ASCII* | a80c868e68352d18a5f6c2dfd88947f16c79e8e3:*ASCII* \
+	       | 1eeca99492e991cf1579544932932dcaa6c32ae3:*utf-8* | 2645f03864d9de5633f84cbce32fe508969f88fd:*utf-8* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*utf-8* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*utf-8* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*utf-8* | 00d995382910627cf5ae881a4530c14b6e01765b:*utf-8* | 1920a900bcc5f0344d44e608483e97773a33a071:*utf-8* | a80c868e68352d18a5f6c2dfd88947f16c79e8e3:*utf-8* \
+	       | 1eeca99492e991cf1579544932932dcaa6c32ae3:*UTF-8* | 2645f03864d9de5633f84cbce32fe508969f88fd:*UTF-8* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*UTF-8* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*UTF-8* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*UTF-8* | 00d995382910627cf5ae881a4530c14b6e01765b:*UTF-8* | 1920a900bcc5f0344d44e608483e97773a33a071:*UTF-8* | a80c868e68352d18a5f6c2dfd88947f16c79e8e3:*UTF-8* )
 	    if test 256 -lt "$(wc -c <"$ac_renoir_f")"; then
 		as_fn_arith $ac_renoir_s + 1 && ac_renoir_s=$as_val
 	    fi ;;
-	  wut | 1eeca99492e991cf1579544932932dcaa6c32ae3:*directory* | 2645f03864d9de5633f84cbce32fe508969f88fd:*directory* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*directory* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*directory* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*directory* )
+	  wut | 1eeca99492e991cf1579544932932dcaa6c32ae3:*directory* | 2645f03864d9de5633f84cbce32fe508969f88fd:*directory* | dafe85aadd33a4d1b622522ee109d17c19c9a3a0:*directory* | cbb5efcaa11738b71127f911f8d9a1a86d577882:*directory* | 7f61abcaa84f32000fee6de0a8b6115830b33b4b:*directory* | 00d995382910627cf5ae881a4530c14b6e01765b:*directory* | 1920a900bcc5f0344d44e608483e97773a33a071:*directory* | a80c868e68352d18a5f6c2dfd88947f16c79e8e3:*directory* )
 	    as_fn_arith $ac_renoir_s + 1 && ac_renoir_s=$as_val ;;
 	  *)
 	    ;;
