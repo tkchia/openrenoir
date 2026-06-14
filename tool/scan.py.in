@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!@PYTHON@
 """
 openrenoir is licensed under CC BY-SA 4.0.
 To view a copy of this license, visit
@@ -9,6 +9,7 @@ import os
 import re
 import string
 import sys
+sys.path = ["@abs_srcdir@"] + sys.path
 from oroir_minihelper import *
 
 class IdCharMap (dict):

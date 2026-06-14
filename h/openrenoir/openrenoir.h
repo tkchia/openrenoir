@@ -7,6 +7,7 @@
 
 #include <stddef.h>	/* for size_t */
 #include <stdint.h>	/* for uint32_t */
+#include <openrenoir/_version.h>
 
 #ifdef __cplusplus
 extern "C"

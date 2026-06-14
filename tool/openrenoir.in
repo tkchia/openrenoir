@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!@PYTHON@
 """
 openrenoir is licensed under CC BY-SA 4.0.
 To view a copy of this license, visit
@@ -12,6 +12,7 @@ import sys
 import tempfile
 
 class Options:
+  spatch = "@SPATCH@"
   in_file = None
   out_file = None
   cplusplus = False
@@ -51,6 +52,14 @@ def ro_data_root (me):
     us = os.path.join (us_head, "share", "openrenoir")
   return us
 
+def find_file (name):
+  for dir in sys.path:
+    path = os.path.join (dir, name)
+    if os.path.exists (path):
+      return path
+  print ("error: could not find " + name, file = sys.stderr)
+  exit (2)
+
 us = ro_data_root (sys.argv[0])
 sys.path = [us] + sys.path
 from oroir_minihelper import *
@@ -64,16 +73,16 @@ else:
 with tempfile.NamedTemporaryFile (delete_on_close = False) as mid_fh:
   mid_file = mid_fh.name
   mid_fh.close ()
-  new_args = ["spatch"]
+  new_args = [opts.spatch]
   if opts.cplusplus:
     new_args += ["--c++"]
-  new_args += ["--sp-file", os.path.join (us, "oroir80.cocci"),
+  new_args += ["--sp-file", find_file ("oroir80.cocci"),
                "-o", mid_file, opts.in_file]
   subprocess.run (new_args, env = new_env, check = True)
-  new_args = ["spatch"]
+  new_args = [opts.spatch]
   if opts.cplusplus:
     new_args += ["--c++"]
   if opts.out_file != None:
     new_args += ["-o", opts.out_file]
-  new_args += ["--sp-file", os.path.join (us, "oroirf0.cocci"), mid_file]
+  new_args += ["--sp-file", find_file ("oroirf0.cocci"), mid_file]
   subprocess.run (new_args, env = new_env, check = True)
