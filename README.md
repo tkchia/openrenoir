@@ -5,6 +5,7 @@ Synopsis:
   * `openrenoir` [`--c++`] [`-o` _out_`.c`] _in_`.c`
 
 Requires [Coccinelle](https://coccinelle.gitlabpages.inria.fr/website/),
-[Python](https://www.python.org/) 3,
+[Python](https://www.python.org/) 3 +
+[LZ4](https://python-lz4.readthedocs.io/en/stable/),
 [AWK](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html),
 and a C compiler.
