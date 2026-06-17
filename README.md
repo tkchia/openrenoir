@@ -2,7 +2,10 @@ Add minor coffee-making abilities to C (and possibly C++) source code. ☕️
 Still in a draft state, but semi-usable.
 
 Synopsis:
+
   * `openrenoir` [`--c++`] [`-o` _out_`.c`] _in_`.c`
+  * `gcc` [..._gcc-options_... ..._input-files_... _out_`.c` ...]
+    `-lopenrenoir` [...]
 
 Requires [Coccinelle](https://coccinelle.gitlabpages.inria.fr/website/),
 [Python](https://www.python.org/) 3 +
