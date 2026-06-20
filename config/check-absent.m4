@@ -65,47 +65,32 @@ AC_DEFUN([AX_RENOIR_CHECK_ABSENT],[
     fi]])
   m4_ifnblank([$3$4],[
     AC_PROG_AWK
-    AC_ARG_VAR([SHA1], [Location of sha1 or sha1sum utility])
-    AC_PATH_PROGS([SHA1], [sha1 sha1sum], [/bin/false])[
-    if test x/bin/false != x"$SHA1"; then
-      ac_renoir_s=0
-      for ac_renoir_f in "$srcdir"/* "$srcdir"/.??*; do
-	ac_renoir_b="${ac_renoir_f##*/}"
-	ac_renoir_h="$(LC_ALL=C $AWK -v s="$ac_renoir_b" '
-			  BEGIN {
-			    BINMODE = 2
-			    ORS = ""
-			    print toupper(s)
-			  }' \
-		       | $SHA1 \
-		       | $AWK '
-			  {
-			    if ($NF == "-")
-			      print @S|@1
-			    else
-			      print $NF
-			  }')"
-	ac_renoir_t="$(POSIXLY_CORRECT=1 $FILE "$ac_renoir_f")"
-	case "$ac_renoir_h:$ac_renoir_t" in
-	  wut]m4_map_args_w($3,[ | ],[:*])[ )]
-	    AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s - 1])[ ;;
-	  wut]m4_map_args_w($4,[ | ],[:*EBCDIC*]) \
-	      m4_map_args_w($4,[ | ],[:*ebcdic*])[ )
-	    ;;
-	  wut]m4_map_args_w($4,[ | ],[:*ascii*]) \
-	      m4_map_args_w($4,[ | ],[:*ASCII*]) \
-	      m4_map_args_w($4,[ | ],[:*utf-8*]) \
-	      m4_map_args_w($4,[ | ],[:*UTF-8*])[ )
-	    if test 256 -lt "$(wc -c <"$ac_renoir_f")"; then]
-		AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s + 1])[
-	    fi ;;
-	  wut]m4_map_args_w($4,[ | ],[:*directory*])[ )]
-	    AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s + 1])[ ;;
-	  *)
-	    ;;
-	esac
-      done
-      if test 0 -lt "$ac_renoir_s" -o ]]]__line__[[[ -lt 108; then]
-	_AX_RENOIR_MSG_ERROR_TOO_MANY[
-      fi
+    [ac_renoir_s=0
+    for ac_renoir_f in "$srcdir"/* "$srcdir"/.??*; do
+      ac_renoir_b="${ac_renoir_f##*/}"
+      ac_renoir_h="$(LC_ALL=C \
+		     $AWK -v _RENOIR_HASH_NAME="$ac_renoir_b" \
+			  -f "$srcdir"/sha1-impl.awk)"
+      ac_renoir_t="$(POSIXLY_CORRECT=1 $FILE "$ac_renoir_f")"
+      case "$ac_renoir_h:$ac_renoir_t" in
+	wut]m4_map_args_w($3,[ | ],[:*])[ )]
+	  AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s - 1])[ ;;
+	wut]m4_map_args_w($4,[ | ],[:*EBCDIC*]) \
+	    m4_map_args_w($4,[ | ],[:*ebcdic*])[ )
+	  ;;
+	wut]m4_map_args_w($4,[ | ],[:*ascii*]) \
+	    m4_map_args_w($4,[ | ],[:*ASCII*]) \
+	    m4_map_args_w($4,[ | ],[:*utf-8*]) \
+	    m4_map_args_w($4,[ | ],[:*UTF-8*])[ )
+	  if test 256 -lt "$(wc -c <"$ac_renoir_f")"; then]
+	    AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s + 1])[
+	  fi ;;
+	wut]m4_map_args_w($4,[ | ],[:*directory*])[ | :*)]
+	  AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s + 1])[ ;;
+	*)
+	  ;;
+      esac
+    done
+    if test 0 -lt "$ac_renoir_s" -o ]]]__line__[[[ -lt 94; then]
+      _AX_RENOIR_MSG_ERROR_TOO_MANY[
     fi]])])
