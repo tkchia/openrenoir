@@ -13,6 +13,7 @@ AC_INIT([openrenoir],m4_esyscmd_s([
     TZ=UTC0 date +%Y%m%d
   fi]),,[openrenoir],[https://codeberg.org/tkchia/openrenoir])
 AC_CONFIG_SRCDIR([tool/openrenoir.in])
+AC_CONFIG_AUX_DIR([build-aux])
 
 AC_DEFUN([AX_RENOIR_PATH_TOOL],dnl
   [AC_ARG_VAR($1,[location of ]$3)

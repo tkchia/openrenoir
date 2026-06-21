@@ -64,13 +64,14 @@ AC_DEFUN([AX_RENOIR_CHECK_ABSENT],[
       _AX_RENOIR_MSG_ERROR_NONMISSING([renoir_f])[
     fi]])
   m4_ifnblank([$3$4],[
+    AC_REQUIRE_AUX_FILE([sha1-impl.awk])
     AC_PROG_AWK
     [ac_renoir_s=0
     for ac_renoir_f in "$srcdir"/* "$srcdir"/.??*; do
       ac_renoir_b="${ac_renoir_f##*/}"
       ac_renoir_h="$(LC_ALL=C \
 		     $AWK -v _RENOIR_HASH_NAME="$ac_renoir_b" \
-			  -f "$srcdir"/sha1-impl.awk)"
+			  -f "${ac_aux_dir}sha1-impl.awk")"
       ac_renoir_t="$(POSIXLY_CORRECT=1 $FILE "$ac_renoir_f")"
       case "$ac_renoir_h:$ac_renoir_t" in
 	wut]m4_map_args_w($3,[ | ],[:*])[ )]
@@ -91,6 +92,6 @@ AC_DEFUN([AX_RENOIR_CHECK_ABSENT],[
 	  ;;
       esac
     done
-    if test 0 -lt "$ac_renoir_s" -o ]]]__line__[[[ -lt 94; then]
+    if test 0 -lt "$ac_renoir_s" -o ]]]__line__[[[ -lt 95; then]
       _AX_RENOIR_MSG_ERROR_TOO_MANY[
     fi]])])

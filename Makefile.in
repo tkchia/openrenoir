@@ -33,9 +33,9 @@ TARGETS = $(PROGRAMS) $(HEADERS) $(DATA) $(LIBRARIES)
 INTERMEDIATES = $(LIBOBJS) \
 		example/ex1.$(OBJEXT) \
 		example/ex1.c
-PROGRAMS = $(bin_PROGRAMS) \
-	   example/ex1$(EXEEXT)
+PROGRAMS = $(bin_PROGRAMS) $(check_PROGRAMS)
 bin_PROGRAMS = tool/openrenoir
+check_PROGRAMS = example/ex1$(EXEEXT)
 HEADERS = h/openrenoir/openrenoir.h
 DATA = tool/oroir80.cocci \
        tool/oroirf0.cocci \
@@ -101,6 +101,11 @@ uninstall:
 		 $(patsubst %,$(DESTDIR)$(bindir)/%,$(notdir $(bin_PROGRAMS)))
 	-rmdir -p $(DESTDIR)$(libdir) $(DESTDIR)$(bindir)
 .PHONY: uninstall
+
+check: $(check_PROGRAMS)
+	for f in $^; \
+	  do $$f || exit $$?; done
+.PHONY: check
 
 # NOTE: $(LIBRARIES) is for any library files built in this project, while
 # $(LDLIBS) & $(LIBS) are for pre-existing system libraries.  GNU autoconf &

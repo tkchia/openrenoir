@@ -44,13 +44,13 @@ function _orSf(t,b,c,d){
  return t<20?_orCh(b,c,d):39<t&&t<60?_orMj(b,c,d):_orXo(_orXo(b,c),d)}
 function _orLw(s,i, j,x,y,z,u){
  j=4*i;x=substr(s,j+1,1);y=substr(s,j+2,1);z=substr(s,j+3,1);u=substr(s,j+4,1)
- return !(x in _orO)||!(y in _orO)||!(z in _orO)||!(u in _orO)?""\
-  :_orO[x]*2^24+_orO[y]*2^16+_orO[z]*2^8+_orO[u]}
+ return (x in _orO)&&(y in _orO)&&(z in _orO)&&(u in _orO)\
+  ?_orO[x]*2^24+_orO[y]*2^16+_orO[z]*2^8+_orO[u]:"?"}
 # https://www.rfc-editor.org/info/rfc3174/
 function sha1(S, l,n,A,B,C,D,E,a,b,c,d,e,W,w,i,t,v,x,y,z){
- l=length(S);if(l>=2^61)return"";n=int(l/4)
- for(i=0;i<n;++i){v=_orLw(S,i);if(v""=="")return"";W[i]=v}
- v=_orLw(S _orA,n);if(v""=="")return""
+ l=length(S);if(l>=2^61)return"?";n=int(l/4)
+ for(i=0;i<n;++i){v=_orLw(S,i);if(v""=="?")return v;W[i]=v}
+ v=_orLw(S _orA,n);if(v""=="?")return v
  W[n++]=v+(l%4>2?12:l%4>1?2965:l%4?758941:194288792);while(n%16-14)W[n++]=0
  W[n++]=int(l/(2^29));W[n++]=(l%(2^29))*8
  A=1732584193;B=4023233417;C=2562383102;D=271733878;E=3285377520
@@ -85,7 +85,7 @@ function _orTs(T){
  _orTr("01234567012345670123456701234567",20,\
   "dea356a2cddd90c7a7ecedc5ebb563934f460452")
  if(T>1)_orTr("a",1000000,"34aa973cd4c4daa4f61eeb2bdbad27316534016f")}
-function _orCt(T,U, c,v,i,a){
+function _orCt(T,U, c,v,a){
  _orUr="https://codeberg.org/tkchia/openrenoir";_orCo="BSD-3-Clause"
  for(v=32;v<127;++v){c=sprintf("%c",v);_orO[c]=v}
  _orQ=2^31;split(_orUr,a,/\/+/);_orA=a[3]
