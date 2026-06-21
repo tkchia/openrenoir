@@ -1,0 +1,18 @@
+# openrenoir is licensed under CC BY-SA 4.0.
+# To view a copy of this license, visit
+# https://creativecommons.org/licenses/by-sa/4.0/.
+
+skip_tags: true
+image:
+  - Ubuntu2404
+  - Ubuntu2204
+environment:
+  matrix:
+    - OS: linux
+      AUTOCONF: PYTHON=/usr/bin/python3
+install:
+  - sudo bash ./test/ci-base-setup.sh $AUTOCONF
+build_script:
+  - bash ./test/ci-build-and-install.sh $AUTOCONF
+test_script:
+  - bash ./test/ci-check.sh

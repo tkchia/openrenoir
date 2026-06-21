@@ -12,3 +12,5 @@ Requires [Coccinelle](https://coccinelle.gitlabpages.inria.fr/website/),
 [LZ4](https://python-lz4.readthedocs.io/en/stable/),
 [AWK](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html),
 and a C compiler.
+
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/q2iboxqb4hbx37np/branch/main?svg=true)](https://ci.appveyor.com/project/tkchia/openrenoir/branch/main)

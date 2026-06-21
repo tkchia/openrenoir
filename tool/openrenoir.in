@@ -13,6 +13,7 @@ import tempfile
 
 class Options:
   spatch = "@SPATCH@"
+  python = "@PYTHON@"
   in_file = None
   out_file = None
   cplusplus = False
@@ -70,19 +71,20 @@ if "PYTHONPATH" in new_env:
   new_env["PYTHONPATH"] = us + ":" + new_env["PYTHONPATH"]
 else:
   new_env["PYTHONPATH"] = us
-with tempfile.NamedTemporaryFile (delete_on_close = False) as mid_fh:
+with tempfile.NamedTemporaryFile (delete = False) as mid_fh:
   mid_file = mid_fh.name
   mid_fh.close ()
-  new_args = [opts.spatch]
+  new_args = [opts.spatch, "--python", opts.python]
   if opts.cplusplus:
     new_args += ["--c++"]
   new_args += ["--sp-file", find_file ("oroir80.cocci"),
                "-o", mid_file, opts.in_file]
   subprocess.run (new_args, env = new_env, check = True)
-  new_args = [opts.spatch]
+  new_args = [opts.spatch, "--python", opts.python]
   if opts.cplusplus:
     new_args += ["--c++"]
   if opts.out_file != None:
     new_args += ["-o", opts.out_file]
   new_args += ["--sp-file", find_file ("oroirf0.cocci"), mid_file]
   subprocess.run (new_args, env = new_env, check = True)
+  os.unlink (mid_file)
