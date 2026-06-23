@@ -24,7 +24,7 @@ AC_DEFUN([AX_RENOIR_PATH_TOOL],dnl
 AC_DEFUN([AX_RENOIR_PATH_PROG],dnl
   [AC_ARG_VAR($1,[location of ]$3)
    AC_PATH_PROG($1,$2)[
-   if test -z "[$]$1"; then]
+   if test -z "@S|@$1"; then]
      AC_MSG_ERROR([could not find ]$3)[
    fi]])
 
@@ -58,8 +58,14 @@ AX_RENOIR_CHECK_ABSENT([doc/LICENSE.CC-BY-SA],
 			1920a900bcc5f0344d44e608483e97773a33a071
 			a80c868e68352d18a5f6c2dfd88947f16c79e8e3])
 
-AC_CONFIG_FILES([Makefile tool/openrenoir tool/scan.py],
+AC_SUBST([ac_aux_dir])
+
+AC_CONFIG_FILES([Makefile tool/scan.py])
+AC_CONFIG_FILES([tool/openrenoir],
 		[test -f tool/openrenoir && chmod +x tool/openrenoir])
+AC_CONFIG_FILES([test/check-sha1-impl.sh],
+		[test -f test/check-sha1-impl.sh \
+		  && chmod +x test/check-sha1-impl.sh])
 AC_DEFINE_UNQUOTED([_OPENRENOIR_VERSION],[${PACKAGE_VERSION}L])
 AC_DEFINE_UNQUOTED([_OPENRENOIR_URL],["${PACKAGE_URL}"])
 AC_CONFIG_HEADERS([h/openrenoir/_version.h])

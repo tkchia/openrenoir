@@ -1,0 +1,9 @@
+#!/bin/sh
+# openrenoir is licensed under CC BY-SA 4.0.
+# To view a copy of this license, visit
+# https://creativecommons.org/licenses/by-sa/4.0/.
+
+set -e -v
+auxdir='@ac_aux_dir@'
+AWK='@AWK@'
+exec "$AWK" -v _RENOIR_SHA1_SELFTEST=1 -f "$auxdir"sha1-impl.awk

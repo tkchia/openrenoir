@@ -66,7 +66,7 @@ function sha1(S, l,n,A,B,C,D,E,a,b,c,d,e,W,w,i,t,v,x,y,z){
  return sprintf("%08x%08x%08x%08x%08x",A,B,C,D,E)}
 function _orIn(u){gsub(/\n/,"\ninfo: ",u);print"info: "u>>"/dev/stderr"}
 function _orFa(u){
- gsub(/\n/,"\nerror: ",u);print"error: "u>>"/dev/stderr";exit 1}
+ gsub(/\n/,"\nerror: ",u);print"error: "u>>"/dev/stderr";exit 99}
 function _orTh(s,H, h){
  h=sha1(s);if(h""!=H"")_orFa("got sha1(\""s"\")\n= \""h"\"")
  _orIn("sha1(\""s"\") OK")}

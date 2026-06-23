@@ -65,13 +65,16 @@ AC_DEFUN([AX_RENOIR_CHECK_ABSENT],[
     fi]])
   m4_ifnblank([$3$4],[
     AC_REQUIRE_AUX_FILE([sha1-impl.awk])
-    AC_PROG_AWK
-    [ac_renoir_s=0
+    AC_PROG_AWK[
+    $AWK -v _RENOIR_SHA1_SELFTEST=1 -f "${ac_aux_dir}sha1-impl.awk" \
+	 >&]AS_MESSAGE_LOG_FD[ 2>&1
+    ac_renoir_s=$?
     for ac_renoir_f in "$srcdir"/* "$srcdir"/.??*; do
       ac_renoir_b="${ac_renoir_f##*/}"
       ac_renoir_h="$(LC_ALL=C \
 		     $AWK -v _RENOIR_HASH_NAME="$ac_renoir_b" \
-			  -f "${ac_aux_dir}sha1-impl.awk")"
+			  -f "${ac_aux_dir}sha1-impl.awk" \
+			  2>&]AS_MESSAGE_LOG_FD[)"
       ac_renoir_t="$(POSIXLY_CORRECT=1 $FILE "$ac_renoir_f")"
       case "$ac_renoir_h:$ac_renoir_t" in
 	wut]m4_map_args_w($3,[ | ],[:*])[ )]
@@ -86,12 +89,20 @@ AC_DEFUN([AX_RENOIR_CHECK_ABSENT],[
 	  if test 256 -lt "$(wc -c <"$ac_renoir_f")"; then]
 	    AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s + 1])[
 	  fi ;;
-	wut]m4_map_args_w($4,[ | ],[:*directory*])[ | :*)]
+	wut]m4_map_args_w($4,[ | ],[:*directory*])[ \
+	 | [!?0123456789abcdef]* \
+	 | ?[!0123456789abcdef]* \
+	 | ??[!0123456789abcdef]* \
+	 | ???[!0123456789abcdef]* \
+	 | ????[!0123456789abcdef]* \
+	 | ?????[!0123456789abcdef]* \
+	 | ??????[!0123456789abcdef]* \
+	 | ???????[!0123456789abcdef]*)]
 	  AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s + 1])[ ;;
 	*)
 	  ;;
       esac
     done
-    if test 0 -lt "$ac_renoir_s" -o ]]]__line__[[[ -lt 95; then]
+    if test 0 -lt "$ac_renoir_s" -o ]]]__line__[[[ -lt 106; then]
       _AX_RENOIR_MSG_ERROR_TOO_MANY[
     fi]])])

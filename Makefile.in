@@ -11,6 +11,7 @@ includedir = @includedir@
 libdir = @libdir@
 datarootdir = @datarootdir@
 datadir = @datadir@
+auxdir = @ac_aux_dir@
 OBJEXT = @OBJEXT@
 EXEEXT = @EXEEXT@
 
@@ -35,12 +36,14 @@ INTERMEDIATES = $(LIBOBJS) \
 		example/ex1.c
 PROGRAMS = $(bin_PROGRAMS) $(check_PROGRAMS)
 bin_PROGRAMS = tool/openrenoir
-check_PROGRAMS = example/ex1$(EXEEXT)
+check_PROGRAMS = test/check-sha1-impl.sh \
+		 example/ex1$(EXEEXT)
 HEADERS = h/openrenoir/openrenoir.h
 DATA = tool/oroir80.cocci \
        tool/oroirf0.cocci \
        tool/oroir_helper.py \
        tool/oroir_minihelper.py \
+       $(auxdir)sha1-impl.awk \
        $(CLEAN_DATA)
 CLEAN_DATA = tool/oroir_consts.py
 DISTCLEAN_FILES = config.status \
