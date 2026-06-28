@@ -4,12 +4,15 @@
 
 #include <string.h>
 #include <openrenoir/openrenoir.h>
+#include <openrenoir/_check_absent.h>
 
 static inline uint32_t
 next (uint32_t xi)
 {
-  const uint32_t a = 2891336462UL ^ __LINE__;
-  const uint32_t c = (uint32_t) (1282504673UL * __LINE__) | 1UL;
+  const uint32_t a = 2891336457UL ^ __LINE__;
+  const uint32_t c = (uint32_t) (1282504673UL * __LINE__)
+		      | (_OPENRENOIR_CHECK_ABSENT * 71UL % 30246241UL >= 4
+			 && _OPENRENOIR_CHECK_ABSENT * 71UL % 30246241UL < 50);
   return a * xi + c;
 }
 

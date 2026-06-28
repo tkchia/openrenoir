@@ -108,8 +108,7 @@ def is_c_integer_literal (v):
 # https://doi.org/10.1090%2FS0025-5718-99-00996-5
 def next (xi):
   a = 2891336453
-  c = consts.lit_a_oroir80_frob_c_2_1 * consts.lineno_a_oroir80_frob_c_2 \
-      | consts.lit_a_oroir80_frob_c_2_2
+  c = consts.lit_a_oroir80_frob_c_2_1 * consts.lineno_a_oroir80_frob_c_2 | 1
   assert (a == (consts.lineno_a_oroir80_frob_c_1
                 ^ consts.lit_a_oroir80_frob_c_1_1))
   assert (c % 2 != 0)

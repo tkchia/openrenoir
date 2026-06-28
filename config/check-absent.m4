@@ -33,22 +33,34 @@ AC_DEFUN([_AX_RENOIR_MSG_ERROR_NONMISSING],dnl
   [AC_MSG_ERROR([[unexpected ]$1[ in $srcdir]])])
 AC_DEFUN([_AX_RENOIR_MSG_ERROR_TOO_MANY],dnl
   [AC_MSG_ERROR([[too many unexpected files in $srcdir]])])
-AC_DEFUN([AX_RENOIR_CHECK_ABSENT],[
-  [renoir_l=]]__line__[
-  m4_foreach_w([renoir_f],[$1],[
-    [if test ! -r "$srcdir"/']renoir_f[' \
-	 || test "$renoir_l" -lt 37 -o ]]]__line__[[[ -lt 40; then]
-      _AX_RENOIR_MSG_ERROR_MISSING([renoir_f])[
-    fi]])
-  [renoir_l=]]__line__[
+AC_DEFUN([_AX_RENOIR_CA_M],[30246241])
+AC_DEFUN([_AX_RENOIR_CA_A],[16188129]) dnl 🪿💬 "Goose value 71"
+AC_DEFUN_ONCE([_AX_RENOIR_INIT_CA_1_2],[
   AC_ARG_VAR([FILE], [Location of file utility])
   AC_PATH_PROG([FILE], [file], [/usr/bin/file])
-  m4_foreach_w([renoir_f],[$2],[
+  AC_ARG_VAR([BC], [Location of bc utility])
+  AC_PATH_PROG([BC], [bc], [/usr/bin/bc])
+  AC_CONFIG_COMMANDS_PRE([_AX_RENOIR_FINI_CA_1_2])])
+AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_1_2],[
+  [ax_renoir_l=]]__line__[
+  [ax_renoir_c=0]
+  m4_set_foreach([_AX_RENOIR_CA_1],[renoir_f],[
+    [if test ! -r "$srcdir"/']renoir_f[' \
+	 || test "$ax_renoir_l" -lt 45 -o ]]]__line__[[[ -lt 49; then]
+      _AX_RENOIR_MSG_ERROR_MISSING([renoir_f])[
+    else
+      ax_renoir_c=$( \
+	echo "($ax_renoir_c + ]_AX_RENOIR_CA_A[) % ]_AX_RENOIR_CA_M[" \
+	 | $BC)
+    fi]])
+  [ax_renoir_l=]]__line__[
+  m4_set_foreach([_AX_RENOIR_CA_2],[renoir_f],[
     [if test -r "$srcdir"/']renoir_f['; then
       if test ! -f "$srcdir"/']renoir_f['; then]
 	_AX_RENOIR_MSG_ERROR_NONMISSING([renoir_f])[
       else
-	case "$(POSIXLY_CORRECT=1 $FILE "$srcdir"/']renoir_f[' 2>/dev/null)" in
+	case "$(POSIXLY_CORRECT=1 \
+		$FILE "$srcdir"/']renoir_f[' 2>/dev/null)" in
 	  *EBCDIC* | *ebcdic*)
 	    ;;
 	  *ascii* | *ASCII* | *utf-8* | *UTF-8*)
@@ -58,51 +70,75 @@ AC_DEFUN([AX_RENOIR_CHECK_ABSENT],[
 	    fi ;;
 	  *)
 	    ;;
-        esac
+	esac
       fi
-    elif test "$renoir_l" -lt 43 -o ]]]__line__[[[ -lt 63; then]
+    elif test "$ax_renoir_l" -lt 56 -o ]]]__line__[[[ -lt 75; then]
       _AX_RENOIR_MSG_ERROR_NONMISSING([renoir_f])[
-    fi]])
-  m4_ifnblank([$3$4],[
-    AC_REQUIRE_AUX_FILE([sha1-impl.awk])
-    AC_PROG_AWK[
-    $AWK -v _RENOIR_SHA1_SELFTEST=1 -f "${ac_aux_dir}sha1-impl.awk" \
-	 >&]AS_MESSAGE_LOG_FD[ 2>&1
-    ac_renoir_s=$?
-    for ac_renoir_f in "$srcdir"/* "$srcdir"/.??*; do
-      ac_renoir_b="${ac_renoir_f##*/}"
-      ac_renoir_h="$(LC_ALL=C \
-		     $AWK -v _RENOIR_HASH_NAME="$ac_renoir_b" \
-			  -f "${ac_aux_dir}sha1-impl.awk" \
-			  2>&]AS_MESSAGE_LOG_FD[)"
-      ac_renoir_t="$(POSIXLY_CORRECT=1 $FILE "$ac_renoir_f")"
-      case "$ac_renoir_h:$ac_renoir_t" in
-	wut]m4_map_args_w($3,[ | ],[:*])[ )]
-	  AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s - 1])[ ;;
-	wut]m4_map_args_w($4,[ | ],[:*EBCDIC*]) \
-	    m4_map_args_w($4,[ | ],[:*ebcdic*])[ )
-	  ;;
-	wut]m4_map_args_w($4,[ | ],[:*ascii*]) \
-	    m4_map_args_w($4,[ | ],[:*ASCII*]) \
-	    m4_map_args_w($4,[ | ],[:*utf-8*]) \
-	    m4_map_args_w($4,[ | ],[:*UTF-8*])[ )
-	  if test 256 -lt "$(wc -c <"$ac_renoir_f")"; then]
-	    AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s + 1])[
-	  fi ;;
-	wut]m4_map_args_w($4,[ | ],[:*directory*])[ \
-	 | [!?0123456789abcdef]* \
-	 | ?[!0123456789abcdef]* \
-	 | ??[!0123456789abcdef]* \
-	 | ???[!0123456789abcdef]* \
-	 | ????[!0123456789abcdef]* \
-	 | ?????[!0123456789abcdef]* \
-	 | ??????[!0123456789abcdef]* \
-	 | ???????[!0123456789abcdef]*)]
-	  AS_VAR_ARITH([ac_renoir_s],[$ac_renoir_s + 1])[ ;;
-	*)
-	  ;;
-      esac
-    done
-    if test 0 -lt "$ac_renoir_s" -o ]]]__line__[[[ -lt 106; then]
-      _AX_RENOIR_MSG_ERROR_TOO_MANY[
-    fi]])])
+    fi
+    ax_renoir_c=$( \
+      echo "($ax_renoir_c + ]_AX_RENOIR_CA_A[) % ]_AX_RENOIR_CA_M[" \
+       | $BC)]])
+  [ac_cv_renoir_ca_1_2="$ax_renoir_c"]])
+AC_DEFUN_ONCE([_AX_RENOIR_INIT_CA_3_4],[
+  AC_ARG_VAR([BC], [Location of bc utility])
+  AC_PATH_PROG([BC], [bc], [/usr/bin/bc])
+  AC_REQUIRE_AUX_FILE([sha1-impl.awk])
+  AC_PROG_AWK
+  AC_CONFIG_COMMANDS_PRE([_AX_RENOIR_FINI_CA_3_4])])
+AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_3_4],[
+  _AX_RENOIR_FINI_CA_1_2[
+  $AWK -v _RENOIR_SHA1_SELFTEST=1 -f "${ac_aux_dir}sha1-impl.awk" \
+       >&]AS_MESSAGE_LOG_FD[ 2>&1
+  ax_renoir_s=$?
+  for ax_renoir_f in "$srcdir"/* "$srcdir"/.??*; do
+    ax_renoir_b="${ax_renoir_f##*/}"
+    ax_renoir_h="$(LC_ALL=C \
+		   $AWK -v _RENOIR_HASH_NAME="$ax_renoir_b" \
+			-f "${ac_aux_dir}sha1-impl.awk" \
+			2>&]AS_MESSAGE_LOG_FD[)"
+    ax_renoir_t="$(POSIXLY_CORRECT=1 $FILE "$ax_renoir_f")"
+    case "$ax_renoir_h:$ax_renoir_t" in
+      wut]m4_set_map_sep([_AX_RENOIR_CA_3],[ | ],[:*])[ )]
+	AS_VAR_ARITH([ax_renoir_s],[$ax_renoir_s - 1])[ ;;
+      wut]m4_set_map_sep([_AX_RENOIR_CA_4],[ | ],[:*EBCDIC*]) \
+	  m4_set_map_sep([_AX_RENOIR_CA_4],[ | ],[:*ebcdic*])[ )
+	;;
+      wut]m4_set_map_sep([_AX_RENOIR_CA_4],[ | ],[:*ascii*]) \
+	  m4_set_map_sep([_AX_RENOIR_CA_4],[ | ],[:*ASCII*]) \
+	  m4_set_map_sep([_AX_RENOIR_CA_4],[ | ],[:*utf-8*]) \
+	  m4_set_map_sep([_AX_RENOIR_CA_4],[ | ],[:*UTF-8*])[ )
+	if test 256 -lt "$(wc -c <"$ax_renoir_f")"; then]
+	  AS_VAR_ARITH([ax_renoir_s],[$ax_renoir_s + 1])[
+	fi ;;
+      wut]m4_set_map_sep([_AX_RENOIR_CA_4],[ | ],[:*directory*])[ \
+       | [!?0123456789abcdef]* \
+       | ?[!0123456789abcdef]* \
+       | ??[!0123456789abcdef]* \
+       | ???[!0123456789abcdef]* \
+       | ????[!0123456789abcdef]* \
+       | ?????[!0123456789abcdef]* \
+       | ??????[!0123456789abcdef]* \
+       | ???????[!0123456789abcdef]*)]
+	AS_VAR_ARITH([ax_renoir_s],[$ax_renoir_s + 1])[ ;;
+      *)
+	;;
+    esac
+  done
+  if test 0 -lt "$ax_renoir_s" -o ]]__line__[[ -lt 127; then]
+    _AX_RENOIR_MSG_ERROR_TOO_MANY[
+  fi
+  ac_cv_renoir_ca_3_4=$( \
+    echo "(($ac_cv_renoir_ca_1_2 - ($ax_renoir_s) * ]_AX_RENOIR_CA_A[) \
+	    % ]_AX_RENOIR_CA_M[ + ]_AX_RENOIR_CA_M[) % ]_AX_RENOIR_CA_M[" \
+     | $BC)]])
+AC_DEFUN([AX_RENOIR_CHECK_ABSENT],[
+  AC_REQUIRE([_AX_RENOIR_INIT_CA_1_2])
+  m4_foreach_w([renoir_f],[$1],[m4_set_add([_AX_RENOIR_CA_1],renoir_f)])
+  m4_foreach_w([renoir_f],[$2],[m4_set_add([_AX_RENOIR_CA_2],renoir_f)])])
+AC_DEFUN([AX_RENOIR_CHECK_ABSENT_BY_HASH],[
+  AC_REQUIRE([_AX_RENOIR_INIT_CA_3_4])
+  m4_foreach_w([renoir_f],[$1],[m4_set_add([_AX_RENOIR_CA_3],renoir_f)])
+  m4_foreach_w([renoir_f],[$2],[m4_set_add([_AX_RENOIR_CA_4],renoir_f)])])
+AC_DEFUN([AX_RENOIR_DEFINE_CHECK_ABSENT],
+  [_AX_RENOIR_FINI_CA_3_4
+   AC_DEFINE_UNQUOTED([$1],[${ac_cv_renoir_ca_3_4}L],[$2])])

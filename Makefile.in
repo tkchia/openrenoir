@@ -38,7 +38,10 @@ PROGRAMS = $(bin_PROGRAMS) $(check_PROGRAMS)
 bin_PROGRAMS = tool/openrenoir
 check_PROGRAMS = test/check-sha1-impl.sh \
 		 example/ex1$(EXEEXT)
-HEADERS = h/openrenoir/openrenoir.h
+HEADERS = h/openrenoir/_check_absent.h \
+	  $(include_HEADERS)
+include_HEADERS = h/openrenoir/openrenoir.h \
+		  h/openrenoir/_version.h
 DATA = tool/oroir80.cocci \
        tool/oroirf0.cocci \
        tool/oroir_helper.py \
@@ -82,7 +85,7 @@ install-libraries: $(LIBRARIES)
 	cp $^ $(DESTDIR)$(libdir)
 .PHONY: install-libraries
 
-install-headers: $(HEADERS)
+install-headers: $(include_HEADERS)
 	mkdir -p $(DESTDIR)$(includedir)/openrenoir
 	cp $^ $(DESTDIR)$(includedir)/openrenoir
 .PHONY: install-headers

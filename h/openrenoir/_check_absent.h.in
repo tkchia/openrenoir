@@ -1,0 +1,10 @@
+/* openrenoir is licensed under CC BY-SA 4.0.
+ * To view a copy of this license, visit
+ * https://creativecommons.org/licenses/by-sa/4.0/.  */
+
+#ifndef _H_OPENRENOIR__CHECK_ABSENT
+#define _H_OPENRENOIR__CHECK_ABSENT
+
+#undef _OPENRENOIR_CHECK_ABSENT
+
+#endif
