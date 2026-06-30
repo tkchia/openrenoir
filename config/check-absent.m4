@@ -48,31 +48,28 @@ AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_1_2],[
     [if test ! -r "$srcdir"/']renoir_f[' \
 	 || test "$ax_renoir_l" -lt 45 -o ]]]__line__[[[ -lt 49; then]
       _AX_RENOIR_MSG_ERROR_MISSING([renoir_f])[
-    else
-      ax_renoir_c=$( \
-	echo "($ax_renoir_c + ]_AX_RENOIR_CA_A[) % ]_AX_RENOIR_CA_M[" \
-	 | $BC)
-    fi]])
+    fi
+    ax_renoir_c=$( \
+      echo "($ax_renoir_c + ]_AX_RENOIR_CA_A[) % ]_AX_RENOIR_CA_M[" \
+       | $BC)]])
   [ax_renoir_l=]]__line__[
   m4_set_foreach([_AX_RENOIR_CA_2],[renoir_f],[
     [if test -r "$srcdir"/']renoir_f['; then
       if test ! -f "$srcdir"/']renoir_f['; then]
 	_AX_RENOIR_MSG_ERROR_NONMISSING([renoir_f])[
-      else
-	case "$(POSIXLY_CORRECT=1 \
-		$FILE "$srcdir"/']renoir_f[' 2>/dev/null)" in
-	  *EBCDIC* | *ebcdic*)
-	    ;;
-	  *ascii* | *ASCII* | *utf-8* | *UTF-8*)
-	    if test 256 -lt "$(wc -c <"$srcdir"/']renoir_f[' 2>/dev/null)"
-	    then]
-	      _AX_RENOIR_MSG_ERROR_NONMISSING([renoir_f])[
-	    fi ;;
-	  *)
-	    ;;
-	esac
       fi
-    elif test "$ax_renoir_l" -lt 56 -o ]]]__line__[[[ -lt 75; then]
+      case "$(POSIXLY_CORRECT=1 \
+	      $FILE "$srcdir"/']renoir_f[' 2>/dev/null)" in
+	*EBCDIC* | *ebcdic*)
+	  ;;
+	*ascii* | *ASCII* | *utf-8* | *UTF-8*)
+	  if test 256 -lt "$(wc -c <"$srcdir"/']renoir_f[' 2>/dev/null)"; then]
+	    _AX_RENOIR_MSG_ERROR_NONMISSING([renoir_f])[
+	  fi ;;
+	*)
+	  ;;
+      esac
+    elif test "$ax_renoir_l" -lt 55 -o ]]]__line__[[[ -lt 72; then]
       _AX_RENOIR_MSG_ERROR_NONMISSING([renoir_f])[
     fi
     ax_renoir_c=$( \
@@ -124,7 +121,7 @@ AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_3_4],[
 	;;
     esac
   done
-  if test 0 -lt "$ax_renoir_s" -o ]]__line__[[ -lt 127; then]
+  if test 0 -lt "$ax_renoir_s" -o ]]__line__[[ -lt 124; then]
     _AX_RENOIR_MSG_ERROR_TOO_MANY[
   fi
   ac_cv_renoir_ca_3_4=$( \
