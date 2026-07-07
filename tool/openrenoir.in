@@ -26,9 +26,13 @@ def usage (msg = None):
   print ("error: " + msg, file = sys.stderr)
   exit (1)
 
+def version ():
+  print ("openrenoir @PACKAGE_VERSION@")
+  exit ()
+
 def parse_args (args):
   try:
-    (opt_list, args) = getopt.getopt (args, "ho:", ["--c++", "--help"])
+    (opt_list, args) = getopt.getopt (args, "ho:V", ["c++", "help", "version"])
   except getopt.GetoptError as err:
     usage ("bad arguments: " + err.msg)
   opts = Options ()
@@ -39,6 +43,8 @@ def parse_args (args):
       usage ()
     elif opt == "-o":
       opts.out_file = optarg
+    elif opt == "-V" or opt == "--version":
+      version ()
     else:
       usage ("unknown option " + repr (opt))
   if len (args) != 1 or what ("-fn") < 2:
