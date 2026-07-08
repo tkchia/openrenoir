@@ -20,7 +20,10 @@ class Options:
 
 def usage (msg = None):
   me_base = os.path.basename (sys.argv[0])
-  print ("usage: " + me_base + " [-o OUT.c] IN.c", file = sys.stderr)
+  print ("usage:\n"
+         + "  " + me_base + " [--c++] [-o OUT.c] IN.c\n"
+         + "  " + me_base + " {-h | -? | --help | -V | --version}",
+         file = sys.stderr)
   if msg == None:
     exit ()
   print ("error: " + msg, file = sys.stderr)
@@ -32,14 +35,15 @@ def version ():
 
 def parse_args (args):
   try:
-    (opt_list, args) = getopt.getopt (args, "ho:V", ["c++", "help", "version"])
+    (opt_list, args) = getopt.getopt (args,
+                                      "h?o:V", ["c++", "help", "version"])
   except getopt.GetoptError as err:
     usage ("bad arguments: " + err.msg)
   opts = Options ()
   for (opt, optarg) in opt_list:
     if opt == "--c++":
       opts.cplusplus = True
-    elif opt == "-h" or opt == "--help":
+    elif opt == "-h" or opt == "-?" or opt == "--help":
       usage ()
     elif opt == "-o":
       opts.out_file = optarg
