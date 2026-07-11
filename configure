@@ -5635,10 +5635,9 @@ printf "%s\n" "$as_me: $ac_file is unchanged" >&6;}
 
 
   case $ac_file$ac_mode in
-    "tool/openrenoir":F) test -f tool/openrenoir && chmod +x tool/openrenoir ;;
-    "tool/axrenoirscan":F) test -f tool/axrenoirscan && chmod +x tool/axrenoirscan ;;
-    "test/check-sha1-impl.sh":F) test -f test/check-sha1-impl.sh \
-		  && chmod +x test/check-sha1-impl.sh ;;
+    "tool/openrenoir":F) chmod +x tool/openrenoir ;;
+    "tool/axrenoirscan":F) chmod +x tool/axrenoirscan ;;
+    "test/check-sha1-impl.sh":F) chmod +x test/check-sha1-impl.sh ;;
 
   esac
 done # for ac_tag

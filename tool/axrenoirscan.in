@@ -14,8 +14,7 @@ import subprocess
 import sys
 import tempfile
 
-class Options:
-  autoscan = "@AUTOSCAN@"
+def get_ac_paths (autoscan):
   if "autom4te_perllibdir" in os.environ:
     ac_paths = [os.environ["autom4te_perllibdir"]]
   else:
@@ -31,6 +30,11 @@ class Options:
                   os.path.join (ac_prefix, ac_path[10 :])]
     else:
       ac_paths = [ac_path]
+  return ac_paths
+
+class Options:
+  autoscan = "@AUTOSCAN@"
+  ac_paths = get_ac_paths (autoscan)
   passthru = []
   srcdir = "."
 
@@ -73,7 +77,7 @@ def parse_args (args):
     else:
       opts.passthru += [opt]
   if len (args) > 1 or what ("-fn") < 2:
-    usage ("bad number of inputs")
+    usage ("bad number of source directories")
   if len (args) == 1:
     opts.srcdir = args[0]
   return opts

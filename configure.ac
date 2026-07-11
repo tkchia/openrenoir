@@ -64,13 +64,9 @@ AX_RENOIR_CHECK_ABSENT_BY_HASH([968e80af9562e09cebe594968b130076952eafe1
 AC_SUBST([ac_aux_dir])
 
 AC_CONFIG_FILES([Makefile tool/scan_consts.py])
-AC_CONFIG_FILES([tool/openrenoir],
-		[test -f tool/openrenoir && chmod +x tool/openrenoir])
-AC_CONFIG_FILES([tool/axrenoirscan],
-		[test -f tool/axrenoirscan && chmod +x tool/axrenoirscan])
-AC_CONFIG_FILES([test/check-sha1-impl.sh],
-		[test -f test/check-sha1-impl.sh \
-		  && chmod +x test/check-sha1-impl.sh])
+AC_CONFIG_FILES([tool/openrenoir],[chmod +x tool/openrenoir])
+AC_CONFIG_FILES([tool/axrenoirscan],[chmod +x tool/axrenoirscan])
+AC_CONFIG_FILES([test/check-sha1-impl.sh],[chmod +x test/check-sha1-impl.sh])
 AC_DEFINE_UNQUOTED([_OPENRENOIR_VERSION],[${PACKAGE_VERSION}L])
 AC_DEFINE_UNQUOTED([_OPENRENOIR_URL],["${PACKAGE_URL}"])
 AX_RENOIR_DEFINE_CHECK_ABSENT([_OPENRENOIR_CHECK_ABSENT])
