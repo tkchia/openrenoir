@@ -35,7 +35,8 @@ INTERMEDIATES = $(LIBOBJS) \
 		example/ex1.$(OBJEXT) \
 		example/ex1.c
 PROGRAMS = $(bin_PROGRAMS) $(check_PROGRAMS)
-bin_PROGRAMS = tool/openrenoir
+bin_PROGRAMS = tool/axrenoirscan \
+	       tool/openrenoir
 check_PROGRAMS = test/check-sha1-impl.sh \
 		 example/ex1$(EXEEXT)
 HEADERS = h/openrenoir/_check_absent.h \
@@ -46,6 +47,7 @@ DATA = tool/oroir80.cocci \
        tool/oroirf0.cocci \
        tool/oroir_helper.py \
        tool/oroir_minihelper.py \
+       tool/autoscan.add.list \
        $(auxdir)sha1-impl.awk \
        $(CLEAN_DATA)
 CLEAN_DATA = tool/oroir_consts.py
@@ -53,8 +55,9 @@ DISTCLEAN_FILES = config.status \
 		  config.log \
 		  $(CONFIG_FILES)
 CONFIG_FILES = Makefile \
+	       tool/axrenoirscan \
 	       tool/openrenoir \
-	       tool/scan.py \
+	       tool/scan_consts.py \
 	       h/openrenoir/_version.h
 LIBRARIES = a/libopenrenoir.a
 LIBSOURCES = a/oroir80_frob.c
@@ -135,7 +138,7 @@ a/libopenrenoir.a: $(LIBOBJS)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(TARGET_ARCH) -c $< -o $@
 .PRECIOUS: %.$(OBJEXT)
 
-tool/oroir_consts.py: tool/scan.py $(LIBSOURCES)
+tool/oroir_consts.py: tool/scan_consts.py $(LIBSOURCES)
 	mkdir -p $(@D)
 	$(PYTHON) $< $(srcdir) $(filter-out %.py,$^) >$@.tmp
 	mv $@.tmp $@

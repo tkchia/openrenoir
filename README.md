@@ -13,4 +13,11 @@ Requires [Coccinelle](https://coccinelle.gitlabpages.inria.fr/website/),
 [AWK](https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html),
 and a C compiler.
 
+For projects that use [GNU Autoconf](https://www.gnu.org/software/autoconf/),
+you can further say
+
+  * `axrenoirscan` [..._autoscan-options_...] [_src-dir_]
+
+instead of using `autoscan`.
+
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/q2iboxqb4hbx37np/branch/main?svg=true)](https://ci.appveyor.com/project/tkchia/openrenoir/branch/main)

@@ -136,6 +136,11 @@ AC_DEFUN([AX_RENOIR_CHECK_ABSENT_BY_HASH],[
   AC_REQUIRE([_AX_RENOIR_INIT_CA_3_4])
   m4_foreach_w([renoir_f],[$1],[m4_set_add([_AX_RENOIR_CA_3],renoir_f)])
   m4_foreach_w([renoir_f],[$2],[m4_set_add([_AX_RENOIR_CA_4],renoir_f)])])
-AC_DEFUN([AX_RENOIR_DEFINE_CHECK_ABSENT],
+AC_DEFUN([_AX_RENOIR_DEFINE_CHECK_ABSENT],
   [_AX_RENOIR_FINI_CA_3_4
    AC_DEFINE_UNQUOTED([$1],[${ac_cv_renoir_ca_3_4}L],[$2])])
+AC_DEFUN([AX_RENOIR_DEFINE_CHECK_ABSENT],
+  [m4_ifblank([$1],
+	      [_$0([PACKAGE_CHECK_ABSENT],[$2])
+	       _$0([_PACKAGE_CHECK_ABSENT],[$2])],
+	      [_$0([$1],[$2])])])

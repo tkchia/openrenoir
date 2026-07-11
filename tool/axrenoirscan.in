@@ -1,0 +1,115 @@
+#!@PYTHON@
+"""
+openrenoir is licensed under CC BY-SA 4.0.
+To view a copy of this license, visit
+https://creativecommons.org/licenses/by-sa/4.0/.
+
+Alternatively, this file axrenoirscan.in is also licensed under the GNU
+General Public License version 3; visit https://www.gnu.org/licenses/.
+"""
+
+import getopt
+import os
+import subprocess
+import sys
+import tempfile
+
+class Options:
+  autoscan = "@AUTOSCAN@"
+  if "autom4te_perllibdir" in os.environ:
+    ac_paths = [os.environ["autom4te_perllibdir"]]
+  else:
+    ac_path = "@datarootdir@/autoconf"
+    if ac_path[: 10] == "${prefix}/":
+      ac_bin_dir = os.path.dirname (autoscan)
+      (ac_bin_head, ac_bin_tail) = os.path.split (ac_bin_dir)
+      if ac_bin_tail.lower () == "bin":
+        ac_prefix = ac_bin_head
+      else:
+        ac_prefix = ac_bin_dir
+      ac_paths = [os.path.join ("@prefix@", ac_path[10 :]),
+                  os.path.join (ac_prefix, ac_path[10 :])]
+    else:
+      ac_paths = [ac_path]
+  passthru = []
+  srcdir = "."
+
+def usage (msg = None):
+  me_base = os.path.basename (sys.argv[0])
+  print ("usage:\n"
+         + "  " + me_base + " [AUTOSCAN-OPTIONS...] [SRCDIR]\n"
+         + "  " + me_base + " {-h | -? | --help | -V | --version}",
+         file = sys.stderr)
+  if msg == None:
+    exit ()
+  print ("error: " + msg, file = sys.stderr)
+  exit (1)
+
+def version ():
+  print ("axrenoirscan @PACKAGE_VERSION@")
+  exit ()
+
+def parse_args (args):
+  try:
+    (opt_list, args) = getopt.getopt (args,
+                                      "B:dh?I:vV",
+                                      ["prepend-include=", "debug",
+                                       "help", "include=",
+                                       "verbose", "version"])
+  except getopt.GetoptError as err:
+    usage ("bad arguments: " + err.msg)
+  opts = Options ()
+  for (opt, optarg) in opt_list:
+    if opt == "-B" or opt == "--prepend-include":
+      opts.ac_paths = [optarg] + opts.ac_paths
+      opts.passthru += [opt, optarg]
+    elif opt == "-I" or opt == "--include":
+      opts.ac_paths += [optarg]
+      opts.passthru += [opt, optarg]
+    elif opt == "-h" or opt == "-?" or opt == "--help":
+      usage ()
+    elif opt == "-V" or opt == "--version":
+      version ()
+    else:
+      opts.passthru += [opt]
+  if len (args) > 1 or what ("-fn") < 2:
+    usage ("bad number of inputs")
+  if len (args) == 1:
+    opts.srcdir = args[0]
+  return opts
+
+def ro_data_root (me):
+  us = os.path.dirname (me)
+  (us_head, us_tail) = os.path.split (us)
+  if us_tail.lower () == "bin":
+    us = os.path.join (us_head, "share", "openrenoir")
+  return us
+
+def find_file (name, paths):
+  for dir in paths:
+    path = os.path.join (dir, name)
+    if os.path.exists (path):
+      return path
+  print ("error: could not find " + name + " in", file = sys.stderr)
+  for dir in paths:
+    print ("  " + dir, file = sys.stderr)
+  exit (2)
+
+us = ro_data_root (sys.argv[0])
+sys.path = [us] + sys.path
+from oroir_minihelper import *
+
+opts = parse_args (sys.argv[1 :])
+old_list_fn = find_file (os.path.join ("autoscan", "autoscan.list"),
+                         opts.ac_paths)
+add_list_fn = find_file ("autoscan.add.list", [us])
+with tempfile.TemporaryDirectory () as tmp_dir:
+  new_as_dir = os.path.join (tmp_dir, "autoscan")
+  os.mkdir (new_as_dir, mode = 0o700)
+  new_list_fn = os.path.join (new_as_dir, "autoscan.list")
+  with open (new_list_fn, "w") as new_list:
+    for old_list_fn in [add_list_fn, old_list_fn]:
+      with open (old_list_fn, "r") as old_list:
+        new_list.write (old_list.read ())
+  new_args = [opts.autoscan, "-B", tmp_dir] + opts.passthru + [opts.srcdir]
+  subprocess.run (new_args, check = True)

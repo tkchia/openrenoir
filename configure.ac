@@ -40,10 +40,12 @@ elif test -z "$cflags_set"; then
   AC_CHECK_DECL([__KEFIRCC__],[CFLAGS='-O2'])
 fi
 AX_RENOIR_PATH_TOOL(AR,ar,ar)
-AC_ARG_VAR(RANLIB, [location of ranlib])
+AC_ARG_VAR(RANLIB,[location of ranlib])
 AC_PATH_TOOL(RANLIB,ranlib,:)
 AX_RENOIR_PATH_PROG(SPATCH,spatch,[Coccinelle spatch])
 AX_RENOIR_PATH_PROG(PYTHON,[python3 python],[Python 3 interpreter])
+AC_ARG_VAR(AUTOSCAN,[location of Autoconf autoscan])
+AC_PATH_PROG(AUTOSCAN,[autoscan],[autoscan])
 
 AX_RENOIR_CHECK_ABSENT([doc/LICENSE.CC-BY-SA],
 		       [LICENSE COPYING])
@@ -61,9 +63,11 @@ AX_RENOIR_CHECK_ABSENT_BY_HASH([968e80af9562e09cebe594968b130076952eafe1
 
 AC_SUBST([ac_aux_dir])
 
-AC_CONFIG_FILES([Makefile tool/scan.py])
+AC_CONFIG_FILES([Makefile tool/scan_consts.py])
 AC_CONFIG_FILES([tool/openrenoir],
 		[test -f tool/openrenoir && chmod +x tool/openrenoir])
+AC_CONFIG_FILES([tool/axrenoirscan],
+		[test -f tool/axrenoirscan && chmod +x tool/axrenoirscan])
 AC_CONFIG_FILES([test/check-sha1-impl.sh],
 		[test -f test/check-sha1-impl.sh \
 		  && chmod +x test/check-sha1-impl.sh])
