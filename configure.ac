@@ -44,6 +44,8 @@ AC_ARG_VAR(RANLIB,[location of ranlib])
 AC_PATH_TOOL(RANLIB,ranlib,:)
 AX_RENOIR_PATH_PROG(SPATCH,spatch,[Coccinelle spatch])
 AX_RENOIR_PATH_PROG(PYTHON,[python3 python],[Python 3 interpreter])
+AC_ARG_VAR(AUTOCONF,[location of Autoconf])
+AC_PATH_PROG(AUTOCONF,[autoconf],[autoconf])
 AC_ARG_VAR(AUTOSCAN,[location of Autoconf autoscan])
 AC_PATH_PROG(AUTOSCAN,[autoscan],[autoscan])
 

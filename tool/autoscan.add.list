@@ -5,7 +5,7 @@
 # Alternatively, this file autoscan.add.list is also licensed under the GNU
 # General Public License version 3; visit https://www.gnu.org/licenses/.
 
-identifier: PACKAGE_CHECK_ABSENT	m4_include([config/check-absent.m4])
+identifier: PACKAGE_CHECK_ABSENT	m4_include([check-absent.m4])
 identifier: PACKAGE_CHECK_ABSENT	AX_RENOIR_DEFINE_CHECK_ABSENT
-identifier: _PACKAGE_CHECK_ABSENT	m4_include([config/check-absent.m4])
+identifier: _PACKAGE_CHECK_ABSENT	m4_include([check-absent.m4])
 identifier: _PACKAGE_CHECK_ABSENT	AX_RENOIR_DEFINE_CHECK_ABSENT

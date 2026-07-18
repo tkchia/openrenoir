@@ -11,6 +11,7 @@ includedir = @includedir@
 libdir = @libdir@
 datarootdir = @datarootdir@
 datadir = @datadir@
+acdir = @srcdir@/config/
 auxdir = @ac_aux_dir@
 OBJEXT = @OBJEXT@
 EXEEXT = @EXEEXT@
@@ -48,6 +49,7 @@ DATA = tool/oroir80.cocci \
        tool/oroir_helper.py \
        tool/oroir_minihelper.py \
        tool/autoscan.add.list \
+       $(acdir)check-absent.m4 \
        $(auxdir)sha1-impl.awk \
        $(CLEAN_DATA)
 CLEAN_DATA = tool/oroir_consts.py

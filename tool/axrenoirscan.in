@@ -10,6 +10,7 @@ General Public License version 3; visit https://www.gnu.org/licenses/.
 
 import getopt
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -33,16 +34,28 @@ def get_ac_paths (autoscan):
   return ac_paths
 
 class Options:
+  me = os.path.basename (sys.argv[0])
   autoscan = "@AUTOSCAN@"
+  autoconf = "@AUTOCONF@"
   ac_paths = get_ac_paths (autoscan)
   passthru = []
   srcdir = "."
+  install = False
+  install_acdir = None
+  install_auxdir = None
+  verbose = False
+
+def version_string ():
+  return "axrenoirscan @PACKAGE_VERSION@"
 
 def usage (msg = None):
-  me_base = os.path.basename (sys.argv[0])
+  me = Options.me
+  print (version_string (), file = sys.stderr)
   print ("usage:\n"
-         + "  " + me_base + " [AUTOSCAN-OPTIONS...] [SRCDIR]\n"
-         + "  " + me_base + " {-h | -? | --help | -V | --version}",
+         + "  " + me + " [AUTOSCAN-OPTIONS...] \\\n"
+         + "    [--install [--install-acdir DIR] [--install-auxdir DIR]] "
+                + "[SRCDIR]\n"
+         + "  " + me + " {-h | -? | --help | -V | --version}",
          file = sys.stderr)
   if msg == None:
     exit ()
@@ -50,7 +63,7 @@ def usage (msg = None):
   exit (1)
 
 def version ():
-  print ("axrenoirscan @PACKAGE_VERSION@")
+  print (version_string ())
   exit ()
 
 def parse_args (args):
@@ -59,6 +72,8 @@ def parse_args (args):
                                       "B:dh?I:vV",
                                       ["prepend-include=", "debug",
                                        "help", "include=",
+                                       "install",
+                                       "install-acdir=", "install-auxdir=",
                                        "verbose", "version"])
   except getopt.GetoptError as err:
     usage ("bad arguments: " + err.msg)
@@ -70,8 +85,17 @@ def parse_args (args):
     elif opt == "-I" or opt == "--include":
       opts.ac_paths += [optarg]
       opts.passthru += [opt, optarg]
+    elif opt == "--install":
+      opts.install = True
+    elif opt == "--install-acdir":
+      opts.install_acdir = optarg
+    elif opt == "--install-auxdir":
+      opts.install_auxdir = optarg
     elif opt == "-h" or opt == "-?" or opt == "--help":
       usage ()
+    elif opt == "-v" or opt == "--verbose":
+      opts.verbose = True
+      opts.passthru += [opt]
     elif opt == "-V" or opt == "--version":
       version ()
     else:
@@ -99,14 +123,20 @@ def find_file (name, paths):
     print ("  " + dir, file = sys.stderr)
   exit (2)
 
+def info (msg, opts):
+  if opts.verbose:
+    print (opts.me + ": " + msg, file = sys.stderr)
+
 us = ro_data_root (sys.argv[0])
 sys.path = [us] + sys.path
 from oroir_minihelper import *
 
 opts = parse_args (sys.argv[1 :])
+info (version_string (), opts)
 old_list_fn = find_file (os.path.join ("autoscan", "autoscan.list"),
                          opts.ac_paths)
 add_list_fn = find_file ("autoscan.add.list", [us])
+info ("autoscan.list addendum at " + add_list_fn, opts)
 with tempfile.TemporaryDirectory () as tmp_dir:
   new_as_dir = os.path.join (tmp_dir, "autoscan")
   os.mkdir (new_as_dir, mode = 0o700)
@@ -116,4 +146,47 @@ with tempfile.TemporaryDirectory () as tmp_dir:
       with open (old_list_fn, "r") as old_list:
         new_list.write (old_list.read ())
   new_args = [opts.autoscan, "-B", tmp_dir] + opts.passthru + [opts.srcdir]
+  info ("running " + repr (new_args), opts)
   subprocess.run (new_args, check = True)
+if opts.install:
+  acdir = opts.install_acdir
+  auxdir = opts.install_auxdir
+  if acdir == None:
+    acdir = opts.srcdir
+    info ("acdir = " + acdir, opts)
+  if auxdir == None:
+    new_args = [opts.autoconf, "--trace=AC_CONFIG_AUX_DIR:$1"]
+    info ("running " + repr (new_args), opts)
+    result = subprocess.run (new_args, cwd = opts.srcdir,
+                             capture_output = True, text = True)
+    #
+    # Follow autoreconf & use the directory given in the last call to
+    # AC_CONFIG_AUX_DIR as the destination.  In my opinion it is equally
+    # valid to use the first call instead...
+    #
+    returncode = result.returncode
+    info ("status " + str (returncode), opts)
+    if result.returncode == 0:
+      trace = result.stdout.rstrip ("\n").split ("\n")
+      auxdir = trace[-1]
+    else:
+      auxdir = opts.srcdir
+    info ("auxdir = " + auxdir, opts)
+  for m4_base in ["check-absent.m4"]:
+    old_m4_fn = find_file (m4_base, [us])
+    info ("install " + old_m4_fn + " to acdir", opts)
+    try:
+      os.mkdir (acdir)
+    except FileExistsError:
+      pass
+    new_m4_fn = os.path.join (acdir, m4_base)
+    shutil.copy2 (old_m4_fn, new_m4_fn)
+  for aux_base in ["sha1-impl.awk"]:
+    old_aux_fn = find_file (aux_base, [us])
+    info ("install " + old_aux_fn + " to auxdir", opts)
+    try:
+      os.mkdir (auxdir)
+    except FileExistsError:
+      pass
+    new_aux_fn = os.path.join (auxdir, aux_base)
+    shutil.copy2 (old_aux_fn, new_aux_fn)
