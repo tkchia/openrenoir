@@ -136,6 +136,7 @@ info (version_string (), opts)
 old_list_fn = find_file (os.path.join ("autoscan", "autoscan.list"),
                          opts.ac_paths)
 add_list_fn = find_file ("autoscan.add.list", [us])
+srcdir = opts.srcdir
 info ("autoscan.list addendum at " + add_list_fn, opts)
 with tempfile.TemporaryDirectory () as tmp_dir:
   new_as_dir = os.path.join (tmp_dir, "autoscan")
@@ -145,32 +146,46 @@ with tempfile.TemporaryDirectory () as tmp_dir:
     for old_list_fn in [add_list_fn, old_list_fn]:
       with open (old_list_fn, "r") as old_list:
         new_list.write (old_list.read ())
-  new_args = [opts.autoscan, "-B", tmp_dir] + opts.passthru + [opts.srcdir]
+  new_args = [opts.autoscan, "-B", tmp_dir] + opts.passthru + [srcdir]
   info ("running " + repr (new_args), opts)
   subprocess.run (new_args, check = True)
 if opts.install:
   acdir = opts.install_acdir
   auxdir = opts.install_auxdir
   if acdir == None:
-    acdir = opts.srcdir
+    new_args = [opts.autoconf, "--trace=AC_CONFIG_MACRO_DIR_TRACE:$1"]
+    info ("running " + repr (new_args), opts)
+    result = subprocess.run (new_args, cwd = srcdir,
+                             capture_output = True, text = True)
+    acdir = srcdir
+    returncode = result.returncode
+    info ("status " + str (returncode), opts)
+    if result.returncode == 0:
+      trace = result.stdout.rstrip ("\n").split ("\n")
+      if len (trace) != 0:
+        acdir = trace[-1]
+        info ("acdir relative to srcdir = " + acdir, opts)
+        acdir = os.path.join (srcdir, acdir)
     info ("acdir = " + acdir, opts)
   if auxdir == None:
     new_args = [opts.autoconf, "--trace=AC_CONFIG_AUX_DIR:$1"]
     info ("running " + repr (new_args), opts)
-    result = subprocess.run (new_args, cwd = opts.srcdir,
+    result = subprocess.run (new_args, cwd = srcdir,
                              capture_output = True, text = True)
     #
     # Follow autoreconf & use the directory given in the last call to
     # AC_CONFIG_AUX_DIR as the destination.  In my opinion it is equally
     # valid to use the first call instead...
     #
+    auxdir = srcdir
     returncode = result.returncode
     info ("status " + str (returncode), opts)
     if result.returncode == 0:
       trace = result.stdout.rstrip ("\n").split ("\n")
-      auxdir = trace[-1]
-    else:
-      auxdir = opts.srcdir
+      if len (trace) != 0:
+        auxdir = trace[-1]
+        info ("auxdir relative to srcdir = " + auxdir, opts)
+        auxdir = os.path.join (srcdir, auxdir)
     info ("auxdir = " + auxdir, opts)
   for m4_base in ["check-absent.m4"]:
     old_m4_fn = find_file (m4_base, [us])
