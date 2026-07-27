@@ -129,6 +129,10 @@ AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_3_4],[
 	    % ]_AX_RENOIR_CA_M[ + ]_AX_RENOIR_CA_M[) % ]_AX_RENOIR_CA_M[" \
      | $BC)]])
 AC_DEFUN([AX_RENOIR_CHECK_ABSENT],[
+  m4_ifnblank([$3],
+    [m4_fatal([obsolete 3rd argument; use AX_RENOIR_CHECK_ABSENT_BY_HASH])])
+  m4_ifnblank([$4],
+    [m4_fatal([obsolete 4th argument; use AX_RENOIR_CHECK_ABSENT_BY_HASH])])
   AC_REQUIRE([_AX_RENOIR_INIT_CA_1_2])
   m4_foreach_w([renoir_f],[$1],[m4_set_add([_AX_RENOIR_CA_1],renoir_f)])
   m4_foreach_w([renoir_f],[$2],[m4_set_add([_AX_RENOIR_CA_2],renoir_f)])])
