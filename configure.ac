@@ -12,7 +12,7 @@ AC_INIT([openrenoir],m4_esyscmd_s([
   else
     TZ=UTC0 date +%Y%m%d
   fi]),,[openrenoir],[https://codeberg.org/tkchia/openrenoir])
-AC_CONFIG_SRCDIR([tool/openrenoir.in])
+AC_CONFIG_SRCDIR([tool/renoirpatch.in])
 AC_CONFIG_MACRO_DIRS([config])
 AC_CONFIG_AUX_DIR([build-aux])
 
@@ -67,7 +67,7 @@ AX_RENOIR_CHECK_ABSENT_BY_HASH([968e80af9562e09cebe594968b130076952eafe1
 AC_SUBST([ac_aux_dir])
 
 AC_CONFIG_FILES([Makefile tool/scan_consts.py])
-AC_CONFIG_FILES([tool/openrenoir],[chmod +x tool/openrenoir])
+AC_CONFIG_FILES([tool/renoirpatch],[chmod +x tool/renoirpatch])
 AC_CONFIG_FILES([tool/axrenoirscan],[chmod +x tool/axrenoirscan])
 AC_CONFIG_FILES([test/check-sha1-impl.sh],[chmod +x test/check-sha1-impl.sh])
 AC_DEFINE_UNQUOTED([_OPENRENOIR_VERSION],[${PACKAGE_VERSION}L])

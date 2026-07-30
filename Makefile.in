@@ -37,7 +37,7 @@ INTERMEDIATES = $(LIBOBJS) \
 		example/ex1.c
 PROGRAMS = $(bin_PROGRAMS) $(check_PROGRAMS)
 bin_PROGRAMS = tool/axrenoirscan \
-	       tool/openrenoir
+	       tool/renoirpatch
 check_PROGRAMS = test/check-sha1-impl.sh \
 		 example/ex1$(EXEEXT)
 HEADERS = h/openrenoir/_check_absent.h \
@@ -58,7 +58,7 @@ DISTCLEAN_FILES = config.status \
 		  $(CONFIG_FILES)
 CONFIG_FILES = Makefile \
 	       tool/axrenoirscan \
-	       tool/openrenoir \
+	       tool/renoirpatch \
 	       tool/scan_consts.py \
 	       h/openrenoir/_version.h
 LIBRARIES = a/libopenrenoir.a
@@ -125,7 +125,7 @@ check: $(check_PROGRAMS)
 	mkdir -p $(@D)
 	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LOADLIBES) $(LDLIBS) $(LIBS) -o $@
 
-example/ex1.c: tool/openrenoir tool/oroir_consts.py example/ex1-j.c
+example/ex1.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c
 	mkdir -p $(@D)
 	PYTHONPATH="$(srcdir)/tool$(if $(PYTHONPATH),:$(PYTHONPATH))" \
 	  $< -o $@ $(filter %.c,$^)

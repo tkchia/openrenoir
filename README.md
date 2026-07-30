@@ -3,7 +3,7 @@ Still in a draft state, but semi-usable.
 
 Synopsis:
 
-  * `openrenoir` [`--c++`] [`-o` _out_`.c`] _in_`.c`
+  * `renoirpatch` [`--c++`] [`-o` _out_`.c`] _in_`.c`
   * `gcc` [..._gcc-options_... ..._input-files_... _out_`.c` ...]
     `-lopenrenoir` [...]
 
