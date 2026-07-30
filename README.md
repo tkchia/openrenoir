@@ -16,7 +16,9 @@ and a C compiler.
 For projects that use [GNU Autoconf](https://www.gnu.org/software/autoconf/),
 you can further say
 
-  * `axrenoirscan` [..._autoscan-options_...] [`--install`] [_src-dir_]
+  * `axrenoirscan` [..._autoscan-options_...] [`--install`]
+    [`--install-acdir` _m4-dir_] [`--install-auxdir` _aux-dir_]
+    [_src-dir_]
 
 instead of using `autoscan`.
 
