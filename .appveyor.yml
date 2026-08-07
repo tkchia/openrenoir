@@ -11,8 +11,9 @@ environment:
     - OS: linux
       AUTOCONF: PYTHON=/usr/bin/python3
 install:
-  - sudo bash ./test/ci-base-setup.sh $AUTOCONF
+  - git submodule update --init --recursive --rebase --force
+  - sudo bash ./test/ci/ci-base-setup.sh $AUTOCONF
 build_script:
-  - bash ./test/ci-build-and-install.sh $AUTOCONF
+  - bash ./test/ci/ci-build-and-install.sh $AUTOCONF
 test_script:
-  - bash ./test/ci-check.sh
+  - bash ./test/ci/ci-check.sh
