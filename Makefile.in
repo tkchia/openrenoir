@@ -11,6 +11,7 @@ includedir = @includedir@
 libdir = @libdir@
 datarootdir = @datarootdir@
 datadir = @datadir@
+mandir = @mandir@
 acdir = @srcdir@/config/
 auxdir = @ac_aux_dir@
 OBJEXT = @OBJEXT@
@@ -31,7 +32,7 @@ SPATCH = @SPATCH@
 DESTDIR =
 VPATH = $(srcdir)
 
-TARGETS = $(PROGRAMS) $(HEADERS) $(DATA) $(LIBRARIES)
+TARGETS = $(PROGRAMS) $(HEADERS) $(DATA) $(LIBRARIES) $(MANS)
 INTERMEDIATES = $(LIBOBJS) \
 		example/ex1.$(OBJEXT) \
 		example/ex1.c
@@ -39,13 +40,15 @@ PROGRAMS = $(bin_PROGRAMS) $(check_PROGRAMS)
 bin_PROGRAMS = tool/axrenoirscan \
 	       tool/renoirpatch
 check_PROGRAMS = test/check-sha1-impl.sh \
-		 example/ex1$(EXEEXT)
+		 example/ex1$(EXEEXT) \
+		 example/ex1-$(EXEEXT)
 HEADERS = h/openrenoir/_check_absent.h \
 	  $(include_HEADERS)
 include_HEADERS = h/openrenoir/openrenoir.h \
 		  h/openrenoir/_version.h
 DATA = tool/oroir80.cocci \
-       tool/oroirf0.cocci \
+       tool/oroirf0-l.cocci \
+       tool/oroirf0--.cocci \
        tool/oroir_helper.py \
        tool/oroir_minihelper.py \
        tool/autoscan.add.list \
@@ -55,7 +58,8 @@ DATA = tool/oroir80.cocci \
 CLEAN_DATA = tool/oroir_consts.py
 DISTCLEAN_FILES = config.status \
 		  config.log \
-		  $(CONFIG_FILES)
+		  $(CONFIG_FILES) \
+		  $(MANS)
 CONFIG_FILES = Makefile \
 	       tool/axrenoirscan \
 	       tool/renoirpatch \
@@ -64,6 +68,8 @@ CONFIG_FILES = Makefile \
 LIBRARIES = a/libopenrenoir.a
 LIBSOURCES = a/oroir80_frob.c
 LIBOBJS = $(LIBSOURCES:.c=.o)
+MANS = $(man1_MANS)
+man1_MANS = 1/renoirpatch.1
 TEXTS = doc/LICENSE.CC-BY-SA
 
 default: $(TARGETS)
@@ -82,7 +88,8 @@ clean mostlyclean:
 	-rmdir -p $(dir $(LIBRARIES) $(INTERMEDIATES) $(CLEAN_DATA))
 .PHONY: clean mostlyclean
 
-install: install-libraries install-headers install-data install-programs
+install: install-libraries install-headers install-data install-programs \
+	 install-mans
 .PHONY: install
 
 install-libraries: $(LIBRARIES)
@@ -105,12 +112,24 @@ install-programs: $(bin_PROGRAMS)
 	cp $^ $(DESTDIR)$(bindir)
 .PHONY: install-programs
 
+install-mans: install-man1
+.PHONY: install-mans
+
+install-man1: $(man1_MANS)
+	mkdir -p $(DESTDIR)$(mandir)/man1
+	cp $^ $(DESTDIR)$(mandir)/man1
+.PHONY: install-man1
+
 uninstall:
 	$(RM) -r $(patsubst %,$(DESTDIR)$(libdir)/%,$(notdir $(LIBRARIES))) \
 		 $(DESTDIR)$(includedir)/openrenoir \
 		 $(DESTDIR)$(datadir)/openrenoir \
-		 $(patsubst %,$(DESTDIR)$(bindir)/%,$(notdir $(bin_PROGRAMS)))
-	-rmdir -p $(DESTDIR)$(libdir) $(DESTDIR)$(bindir)
+		 $(patsubst %,$(DESTDIR)$(bindir)/%, \
+			    $(notdir $(bin_PROGRAMS))) \
+		 $(patsubst %,$(DESTDIR)$(mandir)/man1/%, \
+			    $(notdir $(man1_MANS)))
+	-rmdir -p $(DESTDIR)$(libdir) $(DESTDIR)$(bindir) \
+		  $(DESTDIR)$(mandir)/man1
 .PHONY: uninstall
 
 check: $(check_PROGRAMS)
@@ -129,6 +148,11 @@ example/ex1.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c
 	mkdir -p $(@D)
 	PYTHONPATH="$(srcdir)/tool$(if $(PYTHONPATH),:$(PYTHONPATH))" \
 	  $< -o $@ $(filter %.c,$^)
+
+example/ex1-.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c
+	mkdir -p $(@D)
+	PYTHONPATH="$(srcdir)/tool$(if $(PYTHONPATH),:$(PYTHONPATH))" \
+	  $< -A- -o $@ $(filter %.c,$^)
 
 a/libopenrenoir.a: $(LIBOBJS)
 	$(RM) $@

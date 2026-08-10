@@ -66,7 +66,7 @@ AX_RENOIR_CHECK_ABSENT_BY_HASH([968e80af9562e09cebe594968b130076952eafe1
 
 AC_SUBST([ac_aux_dir])
 
-AC_CONFIG_FILES([Makefile tool/scan_consts.py])
+AC_CONFIG_FILES([Makefile tool/scan_consts.py 1/renoirpatch.1])
 AC_CONFIG_FILES([tool/renoirpatch],[chmod +x tool/renoirpatch])
 AC_CONFIG_FILES([tool/axrenoirscan],[chmod +x tool/axrenoirscan])
 AC_CONFIG_FILES([test/check-sha1-impl.sh],[chmod +x test/check-sha1-impl.sh])

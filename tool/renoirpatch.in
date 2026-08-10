@@ -14,6 +14,7 @@ import tempfile
 class Options:
   spatch = "@SPATCH@"
   python = "@PYTHON@"
+  armour = "l"
   in_file = None
   out_file = None
   cplusplus = False
@@ -36,12 +37,17 @@ def version ():
 def parse_args (args):
   try:
     (opt_list, args) = getopt.getopt (args,
-                                      "h?o:V", ["c++", "help", "version"])
+                                      "A:h?o:V", ["c++", "help", "version"])
   except getopt.GetoptError as err:
     usage ("bad arguments: " + err.msg)
   opts = Options ()
   for (opt, optarg) in opt_list:
-    if opt == "--c++":
+    if opt == "-A":
+      if optarg in ["l", "-"]:
+        opts.armour = optarg
+      else:
+        usage ("unknown armour type " + repr (optarg))
+    elif opt == "--c++":
       opts.cplusplus = True
     elif opt == "-h" or opt == "-?" or opt == "--help":
       usage ()
@@ -95,6 +101,7 @@ with tempfile.NamedTemporaryFile (delete = False) as mid_fh:
     new_args += ["--c++"]
   if opts.out_file != None:
     new_args += ["-o", opts.out_file]
-  new_args += ["--sp-file", find_file ("oroirf0.cocci"), mid_file]
+  cocci = "oroirf0-" + opts.armour + ".cocci"
+  new_args += ["--sp-file", find_file (cocci), mid_file]
   subprocess.run (new_args, env = new_env, check = True)
   os.unlink (mid_file)

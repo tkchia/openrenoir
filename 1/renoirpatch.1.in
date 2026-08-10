@@ -1,0 +1,102 @@
+.\" openrenoir is licensed under CC BY-SA 4.0.
+.\" To view a copy of this license, visit
+.\" https://creativecommons.org/licenses/by-sa/4.0/.
+\
+.\" Dummy definitions of GNU extension macros, in case an-ext.tmac is absent.
+.de UR
+..
+.de UE
+.RI \\$1
+..
+.de MR
+.BR "\\$1" "(\\$2)\\$3"
+..
+\
+.TH RENOIRPATCH "1" "@PACKAGE_VERSION@" openrenoir
+\
+.SH NAME
+\
+renoirpatch \- add minor coffee-making abilities to C source code
+\
+.SH SYNOPSIS
+\
+.B renoirpatch
+.RB [ \-\-c++ ]
+.RB [ \-Al " | " \-A\- ]
+.RB [\-o
+.IR out.c ]
+.I in.c
+.br
+.RI "..."
+.br
+.B cc
+.RI [... cc-options ...
+.RI ... input-files
+.IR out.c ...]
+.B -lopenrenoir
+[...]
+\
+.PP
+.B renoirpatch
+.RB [ \-\-help " | " \-\-version ]
+\
+.SH DESCRIPTION
+\
+.B renoirpatch
+adds minor coffee-making abilities to C (and possibly C++) source code.
+It currently looks for string variable definitions of the form
+.RS
+.BI "register char " ident "[] = \(dq" stuff \(dq
+[
+.BI \(dq more-stuff \(dq
+.RB "...]" ;
+.RE
+and rewrites them.
+\
+.SH OPTIONS
+\
+.TP
+.B \-\-c++
+Try to parse the input file as C++ rather than C.
+\
+.TP
+.BR \-Al ", " \-A\-
+Select the type of source code armouring to use.
+.B \-Al
+selects line-number-based armouring (the default).
+.B \-A\-
+disables armouring.
+\
+.TP
+.BI \-o " out.c"
+Write the processed output to
+.I out.c
+instead of standard output.
+\
+.TP
+.B \-\-help
+Display tool usage information and exit.
+\
+.TP
+.B \-\-version
+Display tool version information and exit.
+\
+.SH BUGS
+\
+There are too many mixed metaphors.
+\
+.SH "SEE ALSO"
+\
+.MR spatch 1 ,
+.MR cc 1
+\
+.SH COPYRIGHT
+\
+\(co 2026.
+Part of the
+.B openrenoir
+project, which is licensed under the
+.UR https://creativecommons.org/licenses/by-sa/4.0/
+Creative Commons Attribution-ShareAlike 4.0 International
+.UE
+license.

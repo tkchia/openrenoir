@@ -3,9 +3,11 @@ Still in a draft state, but semi-usable.
 
 Synopsis:
 
-  * `renoirpatch` [`--c++`] [`-o` _out_`.c`] _in_`.c`
-  * `gcc` [..._gcc-options_... ..._input-files_... _out_`.c` ...]
+  * `renoirpatch` [..._options_...] [`-o` _out.c_] _in.c_
+  * `cc` [..._cc-options_... ..._input-files_... _out.c_ ...]
     `-lopenrenoir` [...]
+
+See the `renoirpatch` (1) man page.
 
 Requires [Coccinelle](https://coccinelle.gitlabpages.inria.fr/website/),
 [Python](https://www.python.org/) 3 +
