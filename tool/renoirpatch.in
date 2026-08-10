@@ -43,7 +43,7 @@ def parse_args (args):
   opts = Options ()
   for (opt, optarg) in opt_list:
     if opt == "-A":
-      if optarg in ["l", "-"]:
+      if optarg in ["l", "lx", "-"]:
         opts.armour = optarg
       else:
         usage ("unknown armour type " + repr (optarg))

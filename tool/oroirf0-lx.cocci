@@ -23,8 +23,7 @@ X1;
 @@
 (V1, suf) = parse_c_integer_literal (V1)
 Y1 = int (P1[0].line)
-assert (Y1 != 0)
-X1 = Y1 - 1
+X1 = V1 ^ Y1
 coccinelle.X1 = coccinelle.Cocci ().make_expr (str (X1) + suf)
 
 @oroirf02 depends on oroirf00 && oroirf01@
@@ -32,4 +31,4 @@ identifier oroirf00.Q1;
 expression oroirf00.V1, oroirf01.X1;
 @@
 - register const uint32_t Q1 = V1 ^ 0;
-+ const uint32_t Q1 = V1 ^ X1 / __LINE__;
++ const uint32_t Q1 = X1 ^ __LINE__;

@@ -35,12 +35,15 @@ VPATH = $(srcdir)
 TARGETS = $(PROGRAMS) $(HEADERS) $(DATA) $(LIBRARIES) $(MANS)
 INTERMEDIATES = $(LIBOBJS) \
 		example/ex1.$(OBJEXT) \
+		example/ex1lx.$(OBJEXT) \
+		example/ex1-.$(OBJEXT) \
 		example/ex1.c
 PROGRAMS = $(bin_PROGRAMS) $(check_PROGRAMS)
 bin_PROGRAMS = tool/axrenoirscan \
 	       tool/renoirpatch
 check_PROGRAMS = test/check-sha1-impl.sh \
 		 example/ex1$(EXEEXT) \
+		 example/ex1lx$(EXEEXT) \
 		 example/ex1-$(EXEEXT)
 HEADERS = h/openrenoir/_check_absent.h \
 	  $(include_HEADERS)
@@ -48,6 +51,7 @@ include_HEADERS = h/openrenoir/openrenoir.h \
 		  h/openrenoir/_version.h
 DATA = tool/oroir80.cocci \
        tool/oroirf0-l.cocci \
+       tool/oroirf0-lx.cocci \
        tool/oroirf0--.cocci \
        tool/oroir_helper.py \
        tool/oroir_minihelper.py \
@@ -148,6 +152,11 @@ example/ex1.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c
 	mkdir -p $(@D)
 	PYTHONPATH="$(srcdir)/tool$(if $(PYTHONPATH),:$(PYTHONPATH))" \
 	  $< -o $@ $(filter %.c,$^)
+
+example/ex1lx.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c
+	mkdir -p $(@D)
+	PYTHONPATH="$(srcdir)/tool$(if $(PYTHONPATH),:$(PYTHONPATH))" \
+	  $< -Alx -o $@ $(filter %.c,$^)
 
 example/ex1-.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c
 	mkdir -p $(@D)

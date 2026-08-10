@@ -22,7 +22,7 @@ renoirpatch \- add minor coffee-making abilities to C source code
 \
 .B renoirpatch
 .RB [ \-\-c++ ]
-.RB [ \-Al " | " \-A\- ]
+.RB [ \-Al " | " \-Alx " | " \-A\- ]
 .RB [\-o
 .IR out.c ]
 .I in.c
@@ -60,18 +60,26 @@ and rewrites them.
 Try to parse the input file as C++ rather than C.
 \
 .TP
-.BR \-Al ", " \-A\-
+.BR \-Al ", " \-Alx ", " \-A\-
 Select the type of source code armouring to use.
+.RS
+.IP \(bu 4
 .B \-Al
 selects line-number-based armouring (the default).
+.IP \(bu 4
+.B \-Alx
+selects a stricter \(em but more brittle \(em form of line-number-based
+armouring.
+.IP \(bu 4
 .B \-A\-
 disables armouring.
+.RE
 \
 .TP
 .BI \-o " out.c"
 Write the processed output to
 .I out.c
-instead of standard output.
+rather than producing a series of diffs on standard output.
 \
 .TP
 .B \-\-help
@@ -87,6 +95,7 @@ There are too many mixed metaphors.
 \
 .SH "SEE ALSO"
 \
+.MR patch 1 ,
 .MR spatch 1 ,
 .MR cc 1
 \
