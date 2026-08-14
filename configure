@@ -649,9 +649,9 @@ ac_includes_default="\
 ac_header_c_list=
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
-ac_aux_dir
-BC
 FILE
+BC
+ac_aux_dir
 AUTOSCAN
 AUTOCONF
 PYTHON
@@ -734,8 +734,8 @@ SPATCH
 PYTHON
 AUTOCONF
 AUTOSCAN
-FILE
-BC'
+BC
+FILE'
 
 
 # Initialize some variables set by options.
@@ -1368,8 +1368,8 @@ Some influential environment variables:
   PYTHON      location of Python 3 interpreter
   AUTOCONF    location of Autoconf
   AUTOSCAN    location of Autoconf autoscan
-  FILE        Location of file utility
   BC          Location of bc utility
+  FILE        Location of file utility
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -4116,6 +4116,35 @@ fi
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ac_config_files="$ac_config_files Makefile tool/scan_consts.py 1/renoirpatch.1 1/axrenoirscan.1"
+
+ac_config_files="$ac_config_files tool/renoirpatch"
+
+ac_config_files="$ac_config_files tool/axrenoirscan"
+
+ac_config_files="$ac_config_files test/check-sha1-impl.sh"
+
+printf "%s\n" "#define _OPENRENOIR_VERSION ${PACKAGE_VERSION}L" >>confdefs.h
+
+printf "%s\n" "#define _OPENRENOIR_URL \"${PACKAGE_URL}\"" >>confdefs.h
+
+
+
   # Extract the first word of "file", so it can be a program name with args.
 set dummy file; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -4209,13 +4238,61 @@ printf "%s\n" "no" >&6; }
 fi
 
 
+  ax_renoir_l=45
+  ax_renoir_c=0
 
+    if test ! -r "$srcdir"/'doc/LICENSE.CC-BY-SA' \
+	 || test "$ax_renoir_l" -lt 45 -o 49 -lt 49; then
+        as_fn_error $? "cannot find doc/LICENSE.CC-BY-SA in $srcdir" "$LINENO" 5
+    fi
+    ax_renoir_c=$( \
+      echo "($ax_renoir_c + 16188129) % 30246241" \
+       | $BC)
+  ax_renoir_l=55
 
-
-
-
-
-
+    if test -r "$srcdir"/'LICENSE'; then
+      if test ! -f "$srcdir"/'LICENSE'; then
+	  as_fn_error $? "unexpected LICENSE in $srcdir" "$LINENO" 5
+      fi
+      case "$(POSIXLY_CORRECT=1 \
+	      $FILE "$srcdir"/'LICENSE' 2>/dev/null)" in
+	*EBCDIC* | *ebcdic*)
+	  ;;
+	*ascii* | *ASCII* | *utf-8* | *UTF-8*)
+	  if test 256 -lt "$(wc -c <"$srcdir"/'LICENSE' 2>/dev/null)"; then
+	      as_fn_error $? "unexpected LICENSE in $srcdir" "$LINENO" 5
+	  fi ;;
+	*)
+	  ;;
+      esac
+    elif test "$ax_renoir_l" -lt 55 -o 72 -lt 72; then
+        as_fn_error $? "unexpected LICENSE in $srcdir" "$LINENO" 5
+    fi
+    ax_renoir_c=$( \
+      echo "($ax_renoir_c + 16188129) % 30246241" \
+       | $BC)
+    if test -r "$srcdir"/'COPYING'; then
+      if test ! -f "$srcdir"/'COPYING'; then
+	  as_fn_error $? "unexpected COPYING in $srcdir" "$LINENO" 5
+      fi
+      case "$(POSIXLY_CORRECT=1 \
+	      $FILE "$srcdir"/'COPYING' 2>/dev/null)" in
+	*EBCDIC* | *ebcdic*)
+	  ;;
+	*ascii* | *ASCII* | *utf-8* | *UTF-8*)
+	  if test 256 -lt "$(wc -c <"$srcdir"/'COPYING' 2>/dev/null)"; then
+	      as_fn_error $? "unexpected COPYING in $srcdir" "$LINENO" 5
+	  fi ;;
+	*)
+	  ;;
+      esac
+    elif test "$ax_renoir_l" -lt 55 -o 72 -lt 72; then
+        as_fn_error $? "unexpected COPYING in $srcdir" "$LINENO" 5
+    fi
+    ax_renoir_c=$( \
+      echo "($ax_renoir_c + 16188129) % 30246241" \
+       | $BC)
+  ac_cv_renoir_ca_1_2="$ax_renoir_c"
 
 
   # Extract the first word of "bc", so it can be a program name with args.
@@ -4315,82 +4392,6 @@ done
 
 
 
-
-
-
-
-
-
-ac_config_files="$ac_config_files Makefile tool/scan_consts.py 1/renoirpatch.1 1/axrenoirscan.1"
-
-ac_config_files="$ac_config_files tool/renoirpatch"
-
-ac_config_files="$ac_config_files tool/axrenoirscan"
-
-ac_config_files="$ac_config_files test/check-sha1-impl.sh"
-
-printf "%s\n" "#define _OPENRENOIR_VERSION ${PACKAGE_VERSION}L" >>confdefs.h
-
-printf "%s\n" "#define _OPENRENOIR_URL \"${PACKAGE_URL}\"" >>confdefs.h
-
-
-  ax_renoir_l=45
-  ax_renoir_c=0
-
-    if test ! -r "$srcdir"/'doc/LICENSE.CC-BY-SA' \
-	 || test "$ax_renoir_l" -lt 45 -o 49 -lt 49; then
-        as_fn_error $? "cannot find doc/LICENSE.CC-BY-SA in $srcdir" "$LINENO" 5
-    fi
-    ax_renoir_c=$( \
-      echo "($ax_renoir_c + 16188129) % 30246241" \
-       | $BC)
-  ax_renoir_l=55
-
-    if test -r "$srcdir"/'LICENSE'; then
-      if test ! -f "$srcdir"/'LICENSE'; then
-	  as_fn_error $? "unexpected LICENSE in $srcdir" "$LINENO" 5
-      fi
-      case "$(POSIXLY_CORRECT=1 \
-	      $FILE "$srcdir"/'LICENSE' 2>/dev/null)" in
-	*EBCDIC* | *ebcdic*)
-	  ;;
-	*ascii* | *ASCII* | *utf-8* | *UTF-8*)
-	  if test 256 -lt "$(wc -c <"$srcdir"/'LICENSE' 2>/dev/null)"; then
-	      as_fn_error $? "unexpected LICENSE in $srcdir" "$LINENO" 5
-	  fi ;;
-	*)
-	  ;;
-      esac
-    elif test "$ax_renoir_l" -lt 55 -o 72 -lt 72; then
-        as_fn_error $? "unexpected LICENSE in $srcdir" "$LINENO" 5
-    fi
-    ax_renoir_c=$( \
-      echo "($ax_renoir_c + 16188129) % 30246241" \
-       | $BC)
-    if test -r "$srcdir"/'COPYING'; then
-      if test ! -f "$srcdir"/'COPYING'; then
-	  as_fn_error $? "unexpected COPYING in $srcdir" "$LINENO" 5
-      fi
-      case "$(POSIXLY_CORRECT=1 \
-	      $FILE "$srcdir"/'COPYING' 2>/dev/null)" in
-	*EBCDIC* | *ebcdic*)
-	  ;;
-	*ascii* | *ASCII* | *utf-8* | *UTF-8*)
-	  if test 256 -lt "$(wc -c <"$srcdir"/'COPYING' 2>/dev/null)"; then
-	      as_fn_error $? "unexpected COPYING in $srcdir" "$LINENO" 5
-	  fi ;;
-	*)
-	  ;;
-      esac
-    elif test "$ax_renoir_l" -lt 55 -o 72 -lt 72; then
-        as_fn_error $? "unexpected COPYING in $srcdir" "$LINENO" 5
-    fi
-    ax_renoir_c=$( \
-      echo "($ax_renoir_c + 16188129) % 30246241" \
-       | $BC)
-  ac_cv_renoir_ca_1_2="$ax_renoir_c"
-
-
   $AWK -v _RENOIR_SHA1_SELFTEST=1 -f "${ac_aux_dir}sha1-impl.awk" \
        >&5 2>&1
   ax_renoir_s=$?
@@ -4428,7 +4429,7 @@ printf "%s\n" "#define _OPENRENOIR_URL \"${PACKAGE_URL}\"" >>confdefs.h
 	;;
     esac
   done
-  if test 0 -lt "$ax_renoir_s" -o 124 -lt 124; then
+  if test 0 -lt "$ax_renoir_s" -o 130 -lt 130; then
       as_fn_error $? "too many unexpected files in $srcdir" "$LINENO" 5
   fi
   ac_cv_renoir_ca_3_4=$( \

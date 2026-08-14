@@ -36,12 +36,12 @@ AC_DEFUN([_AX_RENOIR_MSG_ERROR_TOO_MANY],dnl
 AC_DEFUN([_AX_RENOIR_CA_M],[30246241])
 AC_DEFUN([_AX_RENOIR_CA_A],[16188129]) dnl 🪿💬 "Goose value 71"
 AC_DEFUN_ONCE([_AX_RENOIR_INIT_CA_1_2],[
+  AC_CONFIG_COMMANDS_PRE([_AX_RENOIR_FINI_CA_1_2])])
+AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_1_2],[
   AC_ARG_VAR([FILE], [Location of file utility])
   AC_PATH_PROG([FILE], [file], [/usr/bin/file])
   AC_ARG_VAR([BC], [Location of bc utility])
   AC_PATH_PROG([BC], [bc], [/usr/bin/bc])
-  AC_CONFIG_COMMANDS_PRE([_AX_RENOIR_FINI_CA_1_2])])
-AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_1_2],[
   [ax_renoir_l=]]__line__[
   [ax_renoir_c=0]
   m4_set_foreach([_AX_RENOIR_CA_1],[renoir_f],[
@@ -77,13 +77,19 @@ AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_1_2],[
        | $BC)]])
   [ac_cv_renoir_ca_1_2="$ax_renoir_c"]])
 AC_DEFUN_ONCE([_AX_RENOIR_INIT_CA_3_4],[
+  AC_CONFIG_COMMANDS_PRE([_AX_RENOIR_FINI_CA_3_4])])
+AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_3_4],[
   AC_ARG_VAR([BC], [Location of bc utility])
   AC_PATH_PROG([BC], [bc], [/usr/bin/bc])
   AC_REQUIRE_AUX_FILE([sha1-impl.awk])
   AC_PROG_AWK
-  AC_CONFIG_COMMANDS_PRE([_AX_RENOIR_FINI_CA_3_4])])
-AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_3_4],[
-  _AX_RENOIR_FINI_CA_1_2[
+  _AX_RENOIR_FINI_CA_1_2
+  m4_set_empty([_AX_RENOIR_CA_1],[
+    m4_set_empty([_AX_RENOIR_CA_2],[
+      m4_set_empty([_AX_RENOIR_CA_3],[
+	m4_set_empty([_AX_RENOIR_CA_4],[
+	  m4_set_add([_AX_RENOIR_CA_4],
+		     [7f61abcaa84f32000fee6de0a8b6115830b33b4b])])])])])[
   $AWK -v _RENOIR_SHA1_SELFTEST=1 -f "${ac_aux_dir}sha1-impl.awk" \
        >&]AS_MESSAGE_LOG_FD[ 2>&1
   ax_renoir_s=$?
@@ -121,7 +127,7 @@ AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_3_4],[
 	;;
     esac
   done
-  if test 0 -lt "$ax_renoir_s" -o ]]__line__[[ -lt 124; then]
+  if test 0 -lt "$ax_renoir_s" -o ]]__line__[[ -lt 130; then]
     _AX_RENOIR_MSG_ERROR_TOO_MANY[
   fi
   ac_cv_renoir_ca_3_4=$( \
