@@ -73,7 +73,8 @@ LIBRARIES = a/libopenrenoir.a
 LIBSOURCES = a/oroir80_frob.c
 LIBOBJS = $(LIBSOURCES:.c=.o)
 MANS = $(man1_MANS)
-man1_MANS = 1/renoirpatch.1
+man1_MANS = 1/renoirpatch.1 \
+	    1/axrenoirscan.1
 TEXTS = doc/LICENSE.CC-BY-SA
 
 default: $(TARGETS)

@@ -38,7 +38,7 @@ renoirpatch \- add minor coffee-making abilities to C source code
 \
 .PP
 .B renoirpatch
-.RB [ \-\-help " | " \-\-version ]
+.RB [ \-h " | " \-? " | " \-\-help " | " \-V " | " \-\-version ]
 \
 .SH DESCRIPTION
 \
@@ -82,11 +82,11 @@ Write the processed output to
 rather than producing a series of diffs on standard output.
 \
 .TP
-.B \-\-help
+.BR \-h ", " \-? ", " \-\-help
 Display tool usage information and exit.
 \
 .TP
-.B \-\-version
+.BR \-V ", " \-\-version
 Display tool version information and exit.
 \
 .SH BUGS
@@ -95,6 +95,7 @@ There are too many mixed metaphors.
 \
 .SH "SEE ALSO"
 \
+.MR axrenoirscan 1 ,
 .MR patch 1 ,
 .MR spatch 1 ,
 .MR cc 1

@@ -1,0 +1,125 @@
+.\" openrenoir is licensed under CC BY-SA 4.0.
+.\" To view a copy of this license, visit
+.\" https://creativecommons.org/licenses/by-sa/4.0/.
+\
+.\" Dummy definitions of GNU extension macros, in case an-ext.tmac is absent.
+.de UR
+..
+.de UE
+.RI \\$1
+..
+.de MR
+.BR "\\$1" "(\\$2)\\$3"
+..
+\
+.TH AXRENOIRSCAN "1" "@PACKAGE_VERSION@" openrenoir
+\
+.SH NAME
+\
+axrenoirscan \- generate a preliminary configure.ac and add openrenoir support
+\
+.SH SYNOPSIS
+\
+.B axrenoirscan
+.RB [ \-\-install ]
+.RB [ \-\-install\-acdir
+.IR m4-dir ]
+.RB [ \-\-install\-auxdir
+.IR aux-dir ]
+.RI [... autoscan-options ...]
+.RI [ src-dir ]
+\
+.PP
+.B axrenoirscan
+.RB [ \-h " | " \-? " | " \-\-help " | " \-V " | " \-\-version ]
+\
+.SH DESCRIPTION
+\
+.B axrenoirscan
+invokes GNU Autoconf's
+.MR autoscan 1
+to generate a preliminary
+.B configure.ac
+(as
+.BR configure.scan )
+for a source code project.
+\
+.PP
+If the project looks for a C macro
+.B PACKAGE_CHECK_ABSENT
+or
+.BR _PACKAGE_CHECK_ABSENT ,
+then
+.B axrenoirscan
+will also add Autoconf macro invocations to compute its value,
+and install necessary support files for it.
+\
+.SH OPTIONS
+\
+.TP
+.B \-\-install
+Copy out support files to the project tree.
+\
+.TP
+.BI \-\-install-acdir " m4-dir"
+If
+.B \-\-install
+is specified, install
+.B .m4
+files in
+.IR m4-dir .
+\
+.TP
+.BI \-\-install-auxdir " aux-dir"
+If
+.B \-\-install
+is specified, install to
+.IR aux-dir
+any additional auxiliary files to be used during
+.B configure
+time.
+\
+.TP
+.BR \-h ", " \-? ", " \-\-help
+Display tool usage information and exit.
+\
+.TP
+.BR \-V ", " \-\-version
+Display tool version information and exit.
+\
+.PP
+.B axrenoirscan
+also recognizes the
+.MR autoscan 1
+options
+.BR \-v ,
+.BR \-\-verbose ,
+.BR \-d ,
+.BR \-\-debug ,
+.B \-B
+.IR dir ,
+.B \-\-prepend\-include
+.IR dir ,
+.B \-I
+.IR dir ,
+and
+.B \-\-include
+.IR dir ,
+and passes them to
+.MR autoscan 1 .
+\
+.SH "SEE ALSO"
+\
+.MR autoscan 1 ,
+.MR renoirpatch 1
+\
+.SH COPYRIGHT
+\
+\(co 2026.
+Part of the
+.B openrenoir
+project, which is licensed under the
+.UR https://creativecommons.org/licenses/by-sa/4.0/
+Creative Commons Attribution-ShareAlike 4.0 International
+.UE
+license.
