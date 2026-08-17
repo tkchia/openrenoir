@@ -1,6 +1,4 @@
-Add minor coffee-making abilities to C (and possibly C++) source code. ☕️
-Still in a draft state, but semi-usable.
-
+Add minor coffee-making abilities to C (and possibly C++) source code. ☕️ 
 Synopsis:
 
   * `renoirpatch` [..._options_...] [`-o` _out.c_] _in.c_
