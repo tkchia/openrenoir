@@ -58,6 +58,7 @@ DATA = tool/oroir80.cocci \
        tool/autoscan.add.list \
        $(acdir)check-absent.m4 \
        $(auxdir)sha1-impl.awk \
+       $(auxdir)sha1-selftest.awk \
        $(CLEAN_DATA)
 CLEAN_DATA = tool/oroir_consts.py
 DISTCLEAN_FILES = config.status \

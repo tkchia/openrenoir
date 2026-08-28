@@ -82,6 +82,7 @@ AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_3_4],[
   AC_ARG_VAR([BC], [Location of bc utility])
   AC_PATH_PROG([BC], [bc], [/usr/bin/bc])
   AC_REQUIRE_AUX_FILE([sha1-impl.awk])
+  AC_REQUIRE_AUX_FILE([sha1-selftest.awk])
   AC_PROG_AWK
   _AX_RENOIR_FINI_CA_1_2
   m4_set_empty([_AX_RENOIR_CA_1],[
@@ -90,7 +91,7 @@ AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_3_4],[
 	m4_set_empty([_AX_RENOIR_CA_4],[
 	  m4_set_add([_AX_RENOIR_CA_4],
 		     [7f61abcaa84f32000fee6de0a8b6115830b33b4b])])])])])[
-  $AWK -v _RENOIR_SHA1_SELFTEST=1 -f "${ac_aux_dir}sha1-impl.awk" \
+  $AWK -f "${ac_aux_dir}sha1-impl.awk" -f "${ac_aux_dir}sha1-selftest.awk" \
        >&]AS_MESSAGE_LOG_FD[ 2>&1
   ax_renoir_s=$?
   for ax_renoir_f in "$srcdir"/* "$srcdir"/.??*; do
@@ -127,7 +128,7 @@ AC_DEFUN_ONCE([_AX_RENOIR_FINI_CA_3_4],[
 	;;
     esac
   done
-  if test 0 -lt "$ax_renoir_s" -o ]]__line__[[ -lt 130; then]
+  if test 0 -lt "$ax_renoir_s" -o ]]__line__[[ -lt 131; then]
     _AX_RENOIR_MSG_ERROR_TOO_MANY[
   fi
   ac_cv_renoir_ca_3_4=$( \

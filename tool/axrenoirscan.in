@@ -196,7 +196,7 @@ if opts.install:
       pass
     new_m4_fn = os.path.join (acdir, m4_base)
     shutil.copy2 (old_m4_fn, new_m4_fn)
-  for aux_base in ["sha1-impl.awk"]:
+  for aux_base in ["sha1-impl.awk", "sha1-selftest.awk"]:
     old_aux_fn = find_file (aux_base, [us])
     info ("install " + old_aux_fn + " to auxdir", opts)
     try:

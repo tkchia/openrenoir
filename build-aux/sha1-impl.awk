@@ -64,30 +64,9 @@ function sha1(S, l,n,A,B,C,D,E,a,b,c,d,e,W,w,i,t,v,x,y,z){
    v=_orAd(_orAd(_orAd(x,y),_orAd(e,v)),z);e=d;d=c;c=_orLr(b,30);b=a;a=v}
   A=_orAd(A,a);B=_orAd(B,b);C=_orAd(C,c);D=_orAd(D,d);E=_orAd(E,e)}
  return sprintf("%08x%08x%08x%08x%08x",A,B,C,D,E)}
-function _orIn(u){gsub(/\n/,"\ninfo: ",u);print"info: "u>>"/dev/stderr"}
-function _orFa(u){
- gsub(/\n/,"\nerror: ",u);print"error: "u>>"/dev/stderr";exit 99}
-function _orTh(s,H, h){
- h=sha1(s);if(h""!=H"")_orFa("got sha1(\""s"\")\n= \""h"\"")
- _orIn("sha1(\""s"\") OK")}
-function _orSd(p,r){return r?r%2?_orSd(p,r-1)p:_orSd(p p,r/2):""}
-function _orTr(p,r,H, h){
- h=sha1(_orSd(p,r));if(h""!=H"")_orFa("got sha1(\""p"\" × "r")\n= \""h"\"")
- _orIn("sha1(\""p"\" × "r") OK")}
-function _orTs(T){
- _orIn("sha1-impl.awk self-test  "_orUr);_orIn("  license: "_orCo)
- _orTh("","da39a3ee5e6b4b0d3255bfef95601890afd80709")
- _orTh("a","86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")
- _orTh("ab","da23614e02469a0d7c7bd1bdab5c9c474b1904dc")
- _orTh("abc","a9993e364706816aba3e25717850c26c9cd0d89d")
- _orTh("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",\
-  "84983e441c3bd26ebaae4aa1f95129e5e54670f1")
- _orTr("01234567012345670123456701234567",20,\
-  "dea356a2cddd90c7a7ecedc5ebb563934f460452")
- if(T>1)_orTr("a",1000000,"34aa973cd4c4daa4f61eeb2bdbad27316534016f")}
-function _orCt(T,U, c,v,a){
+function _orCt(U, c,v,a){
  _orUr="https://codeberg.org/tkchia/openrenoir";_orCo="BSD-3-Clause"
  for(v=32;v<127;++v){c=sprintf("%c",v);_orO[c]=v}
  _orQ=2^31;split(_orUr,a,/\/+/);_orA=a[3]
- if(T)_orTs(T);else if(U!="")print sha1(toupper(U))}
-BEGIN{_orCt(_RENOIR_SHA1_SELFTEST+0,_RENOIR_HASH_NAME"")}
+ if(U!="")print sha1(toupper(U))}
+BEGIN{_orCt(_RENOIR_HASH_NAME"")}
