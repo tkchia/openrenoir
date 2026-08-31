@@ -125,3 +125,13 @@ def scramble (s):
     os += bytes ([s[i] ^ (xi >> 24)])
     i += 1
   return (os, key)
+
+def mash (s):
+  key = random.randint (1, 0xffffff) << 8 | random.randint (1, 0xff)
+  n = len (s)
+  h = 0
+  i = 0
+  while i != n:
+    h = (h * key + s[i]) & 0xffffffff
+    i += 1
+  return (h, key)

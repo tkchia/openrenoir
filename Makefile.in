@@ -36,6 +36,7 @@ TARGETS = $(PROGRAMS) $(HEADERS) $(DATA) $(LIBRARIES) $(MANS)
 INTERMEDIATES = $(LIBOBJS) \
 		example/ex1.$(OBJEXT) \
 		example/ex1lx.$(OBJEXT) \
+		example/ex1m.$(OBJEXT) \
 		example/ex1-.$(OBJEXT) \
 		example/ex1.c
 PROGRAMS = $(bin_PROGRAMS) $(check_PROGRAMS)
@@ -44,6 +45,7 @@ bin_PROGRAMS = tool/axrenoirscan \
 check_PROGRAMS = test/check-sha1-impl.sh \
 		 example/ex1$(EXEEXT) \
 		 example/ex1lx$(EXEEXT) \
+		 example/ex1m$(EXEEXT) \
 		 example/ex1-$(EXEEXT)
 HEADERS = h/openrenoir/_check_absent.h \
 	  $(include_HEADERS)
@@ -52,6 +54,7 @@ include_HEADERS = h/openrenoir/openrenoir.h \
 DATA = tool/oroir80.cocci \
        tool/oroirf0-l.cocci \
        tool/oroirf0-lx.cocci \
+       tool/oroirf0-m.cocci \
        tool/oroirf0--.cocci \
        tool/oroir_helper.py \
        tool/oroir_minihelper.py \
@@ -71,7 +74,8 @@ CONFIG_FILES = Makefile \
 	       tool/scan_consts.py \
 	       h/openrenoir/_version.h
 LIBRARIES = a/libopenrenoir.a
-LIBSOURCES = a/oroir80_frob.c
+LIBSOURCES = a/oroir80_frob.c \
+	     a/oroirf0_mash.c
 LIBOBJS = $(LIBSOURCES:.c=.o)
 MANS = $(man1_MANS)
 man1_MANS = 1/renoirpatch.1 \
@@ -150,17 +154,22 @@ check: $(check_PROGRAMS)
 	mkdir -p $(@D)
 	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LOADLIBES) $(LDLIBS) $(LIBS) -o $@
 
-example/ex1.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c
+example/ex1.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c $(DATA)
 	mkdir -p $(@D)
 	PYTHONPATH="$(srcdir)/tool$(if $(PYTHONPATH),:$(PYTHONPATH))" \
 	  $< -o $@ $(filter %.c,$^)
 
-example/ex1lx.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c
+example/ex1lx.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c $(DATA)
 	mkdir -p $(@D)
 	PYTHONPATH="$(srcdir)/tool$(if $(PYTHONPATH),:$(PYTHONPATH))" \
 	  $< -Alx -o $@ $(filter %.c,$^)
 
-example/ex1-.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c
+example/ex1m.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c $(DATA)
+	mkdir -p $(@D)
+	PYTHONPATH="$(srcdir)/tool$(if $(PYTHONPATH),:$(PYTHONPATH))" \
+	  $< -Am -o $@ $(filter %.c,$^)
+
+example/ex1-.c: tool/renoirpatch tool/oroir_consts.py example/ex1-j.c $(DATA)
 	mkdir -p $(@D)
 	PYTHONPATH="$(srcdir)/tool$(if $(PYTHONPATH),:$(PYTHONPATH))" \
 	  $< -A- -o $@ $(filter %.c,$^)

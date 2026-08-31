@@ -7,12 +7,13 @@
 int
 main (void)
 {
-  register char jabberwocky[]
+  static char const jabberwocky1[]
     = "'Twas brillig, and the slithy toves\n"
       "Did gyre and gimble in the wabe;\n"
       "All mimsy were the borogoves,\n"
-      "And the mome raths outgrabe.\n"
-      "\n"
+      "And the mome raths outgrabe.";
+  register char jabberwocky2[]
+    = "\n"
       "\"Beware the Jabberwock, my son!\n"
       "The jaws that bite, the claws that catch!\n"
       "Beware the Jubjub bird, and shun\n"
@@ -36,12 +37,9 @@ main (void)
       "\"And hast thou slain the Jabberwock?\n"
       "Come to my arms, my beamish boy!\n"
       "O frabjous day! Callooh! Callay!\"\n"
-      "He chortled in his joy.\n"
-      "\n"
-      "'Twas brillig, and the slithy toves\n"
-      "Did gyre and gimble in the wabe;\n"
-      "All mimsy were the borogoves,\n"
-      "And the mome raths outgrabe.";
-  puts (jabberwocky);
+      "He chortled in his joy.\n";
+  puts (jabberwocky1);
+  puts (jabberwocky2);
+  puts (jabberwocky1);
   return 0;
 }

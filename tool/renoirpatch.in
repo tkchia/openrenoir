@@ -22,7 +22,8 @@ class Options:
 def usage (msg = None):
   me_base = os.path.basename (sys.argv[0])
   print ("usage:\n"
-         + "  " + me_base + " [--c++] [-o OUT.c] IN.c\n"
+         + "  " + me_base + " [{-Al | -Alx | -Am | -A-]} [--c++] "
+                          + "[-o OUT.c] IN.c\n"
          + "  " + me_base + " {-h | -? | --help | -V | --version}",
          file = sys.stderr)
   if msg == None:
@@ -43,7 +44,7 @@ def parse_args (args):
   opts = Options ()
   for (opt, optarg) in opt_list:
     if opt == "-A":
-      if optarg in ["l", "lx", "-"]:
+      if optarg in ["l", "lx", "m", "-"]:
         opts.armour = optarg
       else:
         usage ("unknown armour type " + repr (optarg))

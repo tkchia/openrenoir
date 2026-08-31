@@ -22,7 +22,7 @@ renoirpatch \- add minor coffee-making abilities to C source code
 \
 .B renoirpatch
 .RB [ \-\-c++ ]
-.RB [ \-Al " | " \-Alx " | " \-A\- ]
+.RB [ \-Al " | " \-Alx " | " \-Am " | " \-A\- ]
 .RB [\-o
 .IR out.c ]
 .I in.c
@@ -51,7 +51,7 @@ It currently looks for string variable definitions of the form
 .BI \(dq more-stuff \(dq
 .RB "...]" ;
 .RE
-and rewrites them.
+and rewrites them into a compressed form, which are decompressed on use.
 \
 .SH OPTIONS
 \
@@ -60,17 +60,30 @@ and rewrites them.
 Try to parse the input file as C++ rather than C.
 \
 .TP
-.BR \-Al ", " \-Alx ", " \-A\-
+.BR \-Al ", " \-Alx ", " \-Am ", " \-A\-
 Select the type of source code armouring to use.
+\
 .RS
-.IP \(bu 4
+.PP
 .B \-Al
 selects line-number-based armouring (the default).
-.IP \(bu 4
+\
+.PP
 .B \-Alx
 selects a stricter \(em but more brittle \(em form of line-number-based
 armouring.
-.IP \(bu 4
+\
+.PP
+.B \-Am
+selects marker-based armouring.  A string to be compressed should be
+preceded by a marker string of the form
+.RS
+.BI "register char const " marker_id "[] = \(dq" marker \(dq
+.RB [...] ;
+.RE
+which will provide the key unscramble the compressed string.
+\
+.PP
 .B \-A\-
 disables armouring.
 .RE
