@@ -12,12 +12,13 @@ import sys
 import tempfile
 
 class Options:
-  spatch = "@SPATCH@"
-  python = "@PYTHON@"
-  armour = "l"
-  in_file = None
-  out_file = None
-  cplusplus = False
+  def __init__ (self):
+    self.spatch = "@SPATCH@"
+    self.python = "@PYTHON@"
+    self.armour = "l"
+    self.in_file = None
+    self.out_file = None
+    self.cplusplus = False
 
 def usage (msg = None):
   me_base = os.path.basename (sys.argv[0])

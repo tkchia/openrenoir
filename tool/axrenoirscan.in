@@ -35,15 +35,16 @@ def get_ac_paths (autoscan):
 
 class Options:
   me = os.path.basename (sys.argv[0])
-  autoscan = "@AUTOSCAN@"
-  autoconf = "@AUTOCONF@"
-  ac_paths = get_ac_paths (autoscan)
-  passthru = []
-  srcdir = "."
-  install = False
-  install_acdir = None
-  install_auxdir = None
-  verbose = False
+  def __init__ (self):
+    opts.autoscan = "@AUTOSCAN@"
+    opts.autoconf = "@AUTOCONF@"
+    opts.ac_paths = get_ac_paths (autoscan)
+    opts.passthru = []
+    opts.srcdir = "."
+    opts.install = False
+    opts.install_acdir = None
+    opts.install_auxdir = None
+    opts.verbose = False
 
 def version_string ():
   return "axrenoirscan @PACKAGE_VERSION@"
